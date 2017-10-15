@@ -11,13 +11,13 @@ class CreateQuestionsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
             Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); 
-            $table->string('content');
+            $table->string('content'); 
             $table->integer('upvote')->default(0);
             $table->integer('downvote')->default(0);
             $table->integer('date')->default(time());

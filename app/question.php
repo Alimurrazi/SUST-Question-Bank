@@ -8,6 +8,11 @@ class question extends Model
 {
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('app\User');
     }
+    public function tag_relation()
+    {
+    	return $this->belongsTo('app\tag_relation'); 
+    }
+
 }
