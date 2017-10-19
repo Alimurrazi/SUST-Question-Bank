@@ -49,12 +49,25 @@ class QuestionSubmitController extends Controller
 
      public function show ($id)
      {
-         $question=DB::table('question')
+/*
+      $users = DB::table('users')
+            ->join('contacts', 'users.id', '=', 'contacts.user_id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.*', 'contacts.phone', 'orders.price')
+            ->get();
+*/
+         $question=DB::table('questions')
                    ->where('id','=',$id)
                    ->get();
 
-     }
+         $tag=DB::table('tag_relations')
+              ->join('tags','tag_relations.tag_id','=','tags.id')
+                  ->where('question_id','=',$id)
+                  ->get();
 
+  return view::make('show_question')->with('question',$question)->with('tag',$tag);
+
+     }
 }
 
 

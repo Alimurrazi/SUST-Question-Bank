@@ -9,17 +9,29 @@
 		{
 			text-align: center;
 		}
+		span
+		{
+			background-color: #808080;
+			margin: 2px;
+		}
 	</style>
 </head>
 <body>
-     
-     <h1>{{$title}}</h1>
-
+        
+  
+     <h1>{{$question[0]->title}}</h1>
+ 
    <?php
-       $content=htmlspecialchars_decode($content);
+       $data=$question[0]->content;
+       $content=htmlspecialchars_decode($data);
        echo $content;
     ?>
-
+  
+  <div>
+  @foreach($tag as $tag)
+  <span>{{$tag->tag_name}}</span>
+  @endforeach 
+  </div>
 
 </body>
 </html>

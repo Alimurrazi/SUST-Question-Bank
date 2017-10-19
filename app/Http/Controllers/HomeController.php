@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use View;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $ques_list=DB::table('questions')
+                   ->orderBy('created_at', 'desc')
+                   ->get();
+
+        return view('home')->with('list',$ques_list);
     }
 }

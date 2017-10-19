@@ -27,7 +27,7 @@ return App\tag::where('tag_name','LIKE','%'.request('q').'%')->paginate(10);
 Auth::routes(); 
 
 Route::get('/home', 'HomeController@index');
-
+ 
 Route::get('/profile','UserController@profile');
 Route::post('/profile','UserController@update');
 
