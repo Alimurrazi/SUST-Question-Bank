@@ -9,15 +9,14 @@
 		{
 			text-align: center;
 		}
-		span
+		#tag
 		{
 			background-color: #808080;
 			margin: 2px;
 		}
 	</style>
 </head>
-<body>
-        
+<body> 
   
      <h1>{{$question[0]->title}}</h1>
  
@@ -29,7 +28,7 @@
   
   <div>
   @foreach($tag as $tag)
-  <span>{{$tag->tag_name}}</span>
+  <span id="tag">{{$tag->tag_name}}</span>
   @endforeach 
   </div>
 

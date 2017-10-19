@@ -63,11 +63,14 @@ function setDocMode(bToSource) {
 img.intLink { border: 0; }
 #toolBar1 select { font-size:10px; }
 #textBox {
-  width: 540px;
-  height: 200px;
+  width: 450px;
+  min-height: 200px;
   border: 1px #000000 solid;
   padding: 12px;
-  overflow: scroll;
+    line-height:15px;
+    transition: width 0.25s;
+    resize:none;
+    overflow:hidden;
 }
 #textBox #sourceText {
   padding: 0;
@@ -107,6 +110,7 @@ img.intLink { border: 0; }
 
 
 </div>
+
 <div id="textBox" contenteditable="true"></div>
 
 <input type="hidden" name="ques_id" value="{{$ques_id}}">
@@ -132,6 +136,15 @@ img.intLink { border: 0; }
 
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+   
+   <script type="text/javascript">
+     $('#textBox').on({input: function(){
+    var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
+    $(this).css({'height':totalHeight});
+}
+});
+   </script>
+
     <script>
 
         $(document).ready(function(){
