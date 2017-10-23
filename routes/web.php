@@ -50,8 +50,12 @@ Route::get('/show_question',function()
       return view('show_question'); 
 });
 */
-
+ 
 
 Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'TagController@index'));
 
 Route::get('autocomplete-ajax',array('as'=>'tagcomplete.ajax','uses'=>'TagController@ajax'));
+
+Route::post('/add-answer/{id}','AnswerSubmitController@submit');
+
+Route::post('/voting/{id}','VotingController@submit');

@@ -81,6 +81,10 @@ img.intLink { border: 0; }
 #title
 {
   margin-bottom: 15px;
+  min-width: 200px;
+      transition: height 0.25s;
+    resize:none;
+    overflow:hidden;
 }
 #editMode label { cursor: pointer; }
 </style>
@@ -141,6 +145,15 @@ img.intLink { border: 0; }
      $('#textBox').on({input: function(){
     var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
     $(this).css({'height':totalHeight});
+}
+});
+    $('#title').on({input: function(){
+    if($(this).prop('scrollWidth')>= parseInt($(this).css('min-width')) )
+    { 
+   // window.alert($(this).prop('scrollWidth')+" "+$(this).css('min-width')); 
+    var totalWidth = $(this).prop('scrollWidth') - parseInt($(this).css('padding-left')) - parseInt($(this).css('padding-right'));
+    $(this).css({'width':totalWidth});
+    }
 }
 });
    </script>

@@ -13,6 +13,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('app\question'); 
     }
+    public function answer()
+    {
+        return $this->hasMany('app\Answer');
+    }
     use Notifiable; 
 
     /**
