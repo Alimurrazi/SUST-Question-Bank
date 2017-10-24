@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SUST Question Bank</title>
+    <title>Question Bank</title>
 
     <!-- Styles --> 
     <link href="/css/app.css" rel="stylesheet">
@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href={{ URL::asset('welcome/css/style.css')}} rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -40,9 +41,11 @@
     </script>
 </head>
 <body>
+
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" style="background-color: #f5f5f5">
             <div class="container">
+
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -52,8 +55,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                            <div class="navbar-brand">
+                                <a href="{{url('/')}}"><h1 style="margin-top: 5px">Question Bank</h1></a>
+                            </div>
 
                     <!-- Branding Image -->
+                    <!--
                     <a class="navbar-brand" href="{{ url('/') }}">
                         SUST Question Bank
                     </a>
@@ -61,6 +68,19 @@
                     <a class="navbar-brand" href="{{ url('/ask_question') }}">
                         Ask Question
                     </a>
+                    -->
+
+                                            <div class="menu">
+                            <ul class="nav nav-tabs" role="tablist">
+                <!--    <li role="presentation" class="active"><a href="index.html">Home</a></li> -->
+                                <li role="presentation"><a href="{{url('#')}}">Tags</a></li>
+                                <li role="presentation"><a href="{{url('/home')}}">Questions</a></li>
+                            <li role="presentation"><a href="{{url('/ask_question')}}">Ask Questions</a></li>
+                            <li role="presentation"><a href="{{url('#')}}">users</a></li>
+                                <li role="presentation"><a href="{{url('#')}}">Academic Archieve</a>
+                                </li>
+                            </ul>
+                        </div>
 
                 </div>
 
@@ -71,7 +91,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;margin-right: 0px">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>

@@ -45,8 +45,8 @@
      <div class="vote-span"><!-- voting-->
         <div class="vote" data-action="up" title="Vote up">
           <i class="fa fa-chevron-up"></i>
-        </div><!--vote up-->
-        <div class="vote-score">10</div>
+        </div><!--vote up--> 
+        <div class="vote-score" id="vote-score">{{$question[0]->upvote-$question[0]->downvote}}</div>
         <div class="vote" data-action="down" title="Vote down">
           <i class="fa fa-chevron-down"></i>
         </div><!--vote down-->

@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/welcomet', function () {
+    return view('welcomet');
+});
+
+
 Route::get('/tag2', function () {
     return view('tag2');
 });
@@ -26,7 +31,7 @@ return App\tag::where('tag_name','LIKE','%'.request('q').'%')->paginate(10);
  
 Auth::routes(); 
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index'); 
  
 Route::get('/profile','UserController@profile');
 Route::post('/profile','UserController@update');

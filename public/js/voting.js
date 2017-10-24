@@ -23,8 +23,10 @@ $(document).ready(function(){
     var action = self.data('action'); // grab action data up/down 
     var parent = self.parent().parent(); // grab grand parent .item
     var postid = parent.data('postid'); // grab post id from data-postid
-    var score = parent.data('score'); // grab score form data-score
-    
+    //var score = parent.data('score'); // grab score form data-score
+     
+    var score=document.getElementById('vote-score').innerHTML;
+    //console.log(score);     
    // console.log(self+" "+action+" "+parent+" "+postid+" "+ques_id);
 
     // only works where is no disabled class

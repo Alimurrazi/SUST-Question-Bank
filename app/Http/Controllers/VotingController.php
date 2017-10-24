@@ -13,6 +13,7 @@ class VotingController extends Controller
        //echo "hello";
        //echo $request->ques_id;
        //DB::table('')
+    	echo $request->action;
        if($request->action=="up")
        {
          DB::table('questions')->where('id','=',$request->ques_id)->increment('upvote');
