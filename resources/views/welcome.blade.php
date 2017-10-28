@@ -31,15 +31,15 @@
                                 <a href="index.html"><h1>Question Bank</h1></a>
                             </div>
                         </div> 
-                        <div class="menu">
+                        <div class="menu"> 
                             <ul class="nav nav-tabs" role="tablist">
                 <!--    <li role="presentation" class="active"><a href="index.html">Home</a></li> -->
-                                <li role="presentation"><a href="feature.html">Tags</a></li>
-                                <li role="presentation"><a href="blog.html">Questions</a></li>
-                            <li role="presentation"><a href="portfolio.html">Ask Questions</a></li>
-                                <li role="presentation"><a href="contact.html">Academic Archieve</a>
+                                <li role="presentation"><a href="#">Tags</a></li>
+                                <li role="presentation"><a href="/home">Questions</a></li>
+                            <li role="presentation"><a href="/ask_question">Ask Questions</a></li>
+                                <li role="presentation"><a href="#">Academic Archieve</a>
                                 </li>
-
+ 
                           @if (Route::has('login'))
                             <li role="presentation"><a href="{{ url('/login') }}">Login</a></li>
                         <li role="presentation"><a href="{{ url('/register') }}">Register</a></li>

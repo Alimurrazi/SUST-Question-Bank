@@ -9,6 +9,11 @@
 		{
 			text-align: center;
 		}
+    p
+    {
+      margin: 0;
+      padding: 0;
+    }
 		#tag
 		{
 			background-color: #808080;
@@ -31,7 +36,7 @@
 .vote-score{cursor: text}
 	</style>
   
-<link type="text/css" rel="stylesheet" href="{{URL::asset('css/style(ans).css')}}">
+<!-- <link type="text/css" rel="stylesheet" href="{{URL::asset('css/style(ans).css')}}"> -->
 <link type="text/css" rel="stylesheet" href="{{URL::asset('css/example(ans).css')}}">
 <script type="text/javascript" src="{{URL::asset('js/voting.js')}}"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -59,11 +64,12 @@
        echo $content;
     ?>
   
-  <div>
+  <div id="all_tag">
   @foreach($tag as $tag)
-  <span id="tag">{{$tag->tag_name}}</span>
+  <span class="tag">{{$tag->tag_name}}</span>
   @endforeach 
   </div>
+
 <div id="clear"></div>
 
 <input type="hidden" id="ques_id" value={{ Request::route('id') }}>
@@ -193,7 +199,7 @@ $.ajaxSetup({
         var br=document.createElement("br");
         var p=document.createElement("p");
         p.innerHTML=html.msg;
-
+ 
         thecom.append(h5,span,br,p);
         newAns.append(img,thecom);
 

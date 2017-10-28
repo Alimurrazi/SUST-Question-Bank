@@ -13,11 +13,14 @@
 	background-color: #fff;
 	border: #d3d6db 1px solid;
 	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	margin-top: 40px;
 } 
 
 .cmt-cnt{
-	width: 100%; height: auto; min-height: 35px; 
-	padding: 5px 0;
+	width: 100%; 
+	height: auto; 
+	min-height: 35px; 
+	padding: 5px 0; 
 	overflow: auto;
 }
 .cmt-cnt img{
@@ -48,13 +51,16 @@
 }
 .thecom p{
 	width: auto;
-	margin: 5px 5px 5px 45px;
+	/*margin: 5px 5px 5px 45px;*/
 	color: #4e5665;
 }
 .new-com-bt{
-	width: 100%; 	height: 30px;
+	width: 100%; 	
+	height: 30px;
 	border: #d3d7dc 1px solid;
-	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px; 
+	border-radius: 3px;
 	background-color: #f9f9f9;
 	color: #adb2bb;
 	cursor: text;
@@ -65,7 +71,11 @@
 	margin-left: 10px;
 	line-height: 30px;
 }
-.new-com-cnt{ width: 100%; height: auto; min-height: 110px; }
+.new-com-cnt{ 
+	width: 100%; 
+	height: auto; 
+	min-height: 110px; 
+}
 .the-new-com{ /* textarea */
 	width: 98%; height: auto; min-height: 70px;
 	padding: 5px; margin-bottom: 8px;
@@ -113,9 +123,11 @@
 	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
 }
 .new-com-cnt{ 
-	width:100%; height: auto; 
+	width:100%; 
+	height: auto; 
 	display: none;
-	padding-top: 10px; margin-bottom: 10px;
+	padding-top: 10px; 
+	margin-bottom: 20px;
 	border-top: #d9d9d9 1px dotted;
 }
 

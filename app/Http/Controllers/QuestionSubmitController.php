@@ -70,6 +70,7 @@ class QuestionSubmitController extends Controller
 
          $answer=DB::table('answers')
                  ->join('users','answers.user_id','=','users.id')
+                 ->select('users.name','users.avatar','answers.content','answers.created_at')
                  ->where('ques_id','=',$id)
                  ->get();         
 

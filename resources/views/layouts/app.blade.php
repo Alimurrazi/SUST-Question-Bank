@@ -31,6 +31,15 @@
         {
             margin:10px;
         }
+        #all_tag 
+        {
+            float: left;
+        }
+        .tag
+        {
+            background-color: #b9a7a7;
+            padding: 5px;
+         }
     </style>
 
     <!-- Scripts -->
@@ -81,7 +90,7 @@
                                 </li>
                             </ul>
                         </div>
-
+ 
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
