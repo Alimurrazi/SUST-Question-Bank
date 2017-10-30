@@ -15,7 +15,7 @@ class QuestionSubmitController extends Controller
     public function submit(Request $request)
     {
       
-      return Input::all();
+    //  return Input::all();
 
        $data=DB::table('questions')
              ->where('user_id','=',Auth::user()->id)

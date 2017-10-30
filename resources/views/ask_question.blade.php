@@ -59,8 +59,17 @@ function setDocMode(bToSource) {
 
 </script>
 <style type="text/css">
+input[type=text], select {
+    width: 50%;
+    padding: 6px 10px;
+    margin: 6px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 .intLink { cursor: pointer; }
-img.intLink { border: 0; }
+img.intLink { border: 0;margin: 2px }
 #toolBar1 select { font-size:10px; }
 #textBox {
   width: 450px;
@@ -87,6 +96,10 @@ img.intLink { border: 0; }
     overflow:hidden;
 }
 #editMode label { cursor: pointer; }
+.select2.select2-container.select2-container--default
+{
+  width: 500px;
+}
 </style>
 </head>
 <body onload="initDoc();">
@@ -95,7 +108,8 @@ img.intLink { border: 0; }
 <input type="hidden" name="myDoc">
 <input type="hidden" name="ques_id" value="{{$ques_id}}">
 <div id="toolBar2">
-
+<label>Title</label>  
+<br>
 <input type="text" name="title" id="title" placeholder="  Title">
 <br>
  
@@ -124,6 +138,7 @@ img.intLink { border: 0; }
     <div class="tag-box">
            <div class="form-group">
                <label for="users">Add Tag</label>
+               <br>
           <select name="tag_id[]" id="users" class="form-control" multiple="multiple">
                </select>
            </div>

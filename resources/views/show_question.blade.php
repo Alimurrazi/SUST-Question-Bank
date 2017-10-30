@@ -58,17 +58,22 @@
       </div>
       </div>
 
+<div class="content">
    <?php
        $data=$question[0]->content;
        $content=htmlspecialchars_decode($data);
        echo $content;
     ?>
-  
+      <div id="clear"></div>
+
   <div id="all_tag">
   @foreach($tag as $tag)
-  <span class="tag">{{$tag->tag_name}}</span>
+  <span class="tag" style="color: white">{{$tag->tag_name}}</span>
   @endforeach 
   </div>
+</div>  
+
+  <div id="clear"></div>
 
 <div id="clear"></div>
 
