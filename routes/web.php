@@ -24,9 +24,14 @@ Route::get('/tag2', function () {
     return view('tag2');
 });
 
+Route::get('/tag','TagController@all');
+Route::get('/tag/{id}','TagController@specific');
+
+/*
 Route::get('/tag', function () {
     return view('tag');
 });
+*/
  
 Route::get('/api/tags',function(){
 return App\tag::where('tag_name','LIKE','%'.request('q').'%')->paginate(10);

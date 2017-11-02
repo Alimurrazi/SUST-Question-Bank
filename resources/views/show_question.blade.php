@@ -6,7 +6,7 @@
 	<title>SUST Question Bank</title>
 	<style type="text/css">
 		h1
-		{
+		{ 
 			text-align: center;
 		}
     p

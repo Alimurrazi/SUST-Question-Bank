@@ -9,9 +9,56 @@ use View;
 
 class TagController extends Controller
 {
-    public function index()
+    public function all()
     {
-        return view('tag'); 
+    	$tag=DB::table('tags')
+    	     ->get();
+        
+        $count=[];
+
+        foreach ($tag as $tags) 
+        {
+             $count[]=DB::table('tag_relations')
+                      ->where('tag_id','=',$tags->id)
+                      ->count();
+        }
+
+    	// echo sizeof($tag);
+    	$size=sizeof($tag);
+    	$row=ceil($size/3);    
+        return view('tag')->with('tag',$tag)->with('count',$count)->with('size',$size)->with('row',$row); 
+    }
+
+    public function specific($id)
+    {
+    	        $ques_list=DB::table('questions')
+                           ->join('tag_relations','tag_relations.question_id','=','questions.id')
+                           ->where('tag_relations.tag_id','=',$id)
+                           ->select('questions.id','questions.title','questions.content','questions.created_at','tag_relations.tag_id')
+                           ->orderBy('created_at', 'desc')
+                           ->get();
+        
+    //    return $ques_list;
+
+        $total_answer=[];
+        $tag=[];
+
+        foreach ($ques_list as $question)
+        {
+             $total_answer[]=DB::table('answers')
+                            ->where('ques_id','=',$question->id)
+                            ->count();
+             
+
+
+             $tag[$question->id]=DB::table('tag_relations')
+                                 ->where('tag_relations.question_id','=',$question->id)
+                                 ->join('tags','tags.id','=','tag_relations.tag_id')
+                                 ->select('tags.tag_name')
+                                 ->get();
+        }
+       return view('home')->with('list',$ques_list)->with('total_answer',$total_answer)->with('ques_tag',$tag);
+
     }
  
     public function ajax(Request $request){

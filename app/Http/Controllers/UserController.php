@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-       if(Input::hasFile('avatar'))
+       if(Input::hasFile('avatar')) 
       //  if($request->file('avatar'))
        {
        	$avatar=$request->file('avatar');

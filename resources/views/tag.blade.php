@@ -8,29 +8,36 @@
 
   <body>
         <div class="container">
+        @for($i=0;$i<$row;$i++)  
         <div class="row">
             <div class="bg">
-              <a href="#">                
+         @for($j=$i*3;$j<($i+1)*3;$j++)
+          @if($j==$size)
+          break;
+          @endif    
+              <a href="/tag/{{$tag[$j]->id}}">                
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="0.8s">
                         <div class="align-center">
-                            <h4>C</h4>
+                            <h4>{{$tag[$j]->tag_name}}</h4>
                             <p>
-                             One of the most popular and old Programming Language.
+                            {{$tag[$j]->content}}  
+                          {{--   One of the most popular and old Programming Language. --}}
                             </p>
                             <div class="ficon">
-                                <h5>10 Questions</h5> 
+                                <h5>{{$count[$j]}} Questions</h5> 
                             </div>
                         </div>
                     </div>
                 </div>
                   </a>
+          @endfor        
+                  <!--
                                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="1.3s">
                         <div class="align-center">
                             <h4>Users</h4>                  
                             <div class="icon">
-                            <!--    <i class="fa fa-laptop fa-3x"></i>  -->
                                 <i class="fa fa-user fa-3x"></i>
                             </div>
                             <p>
@@ -42,8 +49,10 @@
                         </div>
                     </div>
                 </div>
+-->
               </div>
             </div>
+            @endfor
           </div>
   </body>
   @endsection
