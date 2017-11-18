@@ -18,5 +18,8 @@ class question extends Model
     {
     	return $this->hasMany('app\Answer');
     }
-
+    public function user_vote()
+    {
+        return $this->belongsTo('app\user_vote');
+    }
 }

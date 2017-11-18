@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+  
 Route::get('/welcomet', function () {
     return view('welcomet');
 });
@@ -26,13 +26,15 @@ Route::get('/tag2', function () {
 
 Route::get('/tag','TagController@all');
 Route::get('/tag/{id}','TagController@specific');
+ 
+Route::get('/users','ShowUsersController@index');
 
 /*
 Route::get('/tag', function () {
     return view('tag');
 });
 */
- 
+  
 Route::get('/api/tags',function(){
 return App\tag::where('tag_name','LIKE','%'.request('q').'%')->paginate(10);
 });
@@ -42,7 +44,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index'); 
  
-Route::get('/profile','UserController@profile');
+Route::get('/profile/{id}','UserController@profile'); 
 Route::post('/profile','UserController@update');
 
 /*
@@ -64,7 +66,7 @@ Route::get('/show_question',function()
       return view('show_question'); 
 });
 */
- 
+  
 
 Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'TagController@index'));
 

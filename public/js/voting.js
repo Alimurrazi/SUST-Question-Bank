@@ -1,18 +1,21 @@
 $(document).ready(function(){
-  // ajax setup
-  /*
-  $.ajaxSetup({
-    url: 'ajaxvote.php',
-    type: 'POST',
-    cache: 'false'
-  });
-  */
+  
+  var vote_news = $('#vote').val();
+  if(vote_news=='up')
+  {
+     $('#up').css({'color':'orange'});
+     $('#vote-score').css({'color':'orange'});
+  }
+  else if(vote_news=='down')
+  {
+     $('#down').css({'color':'red'});
+     $('#vote-score').css({'color':'red'});
+  }
 
-  // any voting button (up/down) clicked event
   $('.vote').click(function(){
     var ques_id = document.getElementById('ques_id').value;
       $.ajaxSetup({
-    url: '/voting/'+ques_id.value,
+    url: '/voting/'+ques_id,
     type: 'POST',
     cache: 'false',
     headers: {
@@ -26,28 +29,45 @@ $(document).ready(function(){
     //var score = parent.data('score'); // grab score form data-score
      
     var score=document.getElementById('vote-score').innerHTML;
-    //console.log(score);     
-   // console.log(self+" "+action+" "+parent+" "+postid+" "+ques_id);
-
+ 
     // only works where is no disabled class
     if (!parent.hasClass('.disabled')) {
       // vote up action
       if (action == 'up') {
-        // increase vote score and color to orange
-        parent.find('.vote-score').html(++score).css({'color':'orange'});
-        // change vote up button color to orange
-        self.css({'color':'orange'});
         // send ajax request with post id & action
-        $.ajax({data: {'postid' : postid, 'action' : 'up','ques_id':ques_id}});
+        $.ajax({
+          data: {'postid' : postid, 'action' : 'up','ques_id':ques_id},
+          success: function(result)
+          {
+            console.log(result);
+            if(result.status=='up')
+            {
+        // increase vote score and color to orange
+             parent.find('.vote-score').html(++score).css({'color':'orange'});
+        // change vote up button color to orange
+             self.css({'color':'orange'});
+            }
+          }
+        });
+
       }
       // voting down action
       else if (action == 'down'){
         // decrease vote score and color to red
-        parent.find('.vote-score').html(--score).css({'color':'red'});
-        // change vote up button color to red
-        self.css({'color':'red'});
-        // send ajax request
-        $.ajax({data: {'postid' : postid, 'action' : 'down','ques_id':ques_id}});
+                 $.ajax({
+          data: {'postid' : postid, 'action' : 'down','ques_id':ques_id},
+          success: function(result)
+          {
+            if(result.status=='down')
+            {
+        // increase vote score and color to orange
+             parent.find('.vote-score').html(--score).css({'color':'red'});
+        // change vote up button color to orange
+             self.css({'color':'red'});
+            }
+          }
+        });
+        //
       };
 
       // add disabled class with .item

@@ -72,9 +72,27 @@ class QuestionSubmitController extends Controller
                  ->join('users','answers.user_id','=','users.id')
                  ->select('users.name','users.avatar','answers.content','answers.created_at')
                  ->where('ques_id','=',$id)
-                 ->get();         
+                 ->orderBy('answers.id', 'desc')
+                 ->get();
 
-  return view::make('show_question')->with('question',$question)->with('tag',$tag)->with('answer',$answer);
+          $vote=DB::table('user_votes')
+                ->where('ques_id','=',$id)
+                ->where('user_id','=',Auth::user()->id)
+                ->first();                        
+
+//return $vote; 
+
+if($vote===null)
+  $vote_status='none';
+else
+{  
+if($vote->upvote==1)
+  $vote_status='up';
+else if($vote->downvote==1)
+  $vote_status='down';
+}
+
+  return view::make('show_question')->with('question',$question)->with('tag',$tag)->with('answer',$answer)->with('vote',$vote_status);
 
      }
 }

@@ -5,6 +5,14 @@
 <head>
 	<title>SUST Question Bank</title>
 	<style type="text/css">
+    .orange
+    {
+      color: orange;
+    }
+    .red
+    {
+      color: red;
+    } 
 		h1
 		{ 
 			text-align: center;
@@ -22,6 +30,12 @@
 		.vote-span{
   width: 60px;
   float: left;
+  margin: 5px 0;
+}
+.update-span
+{
+  width: 60px;
+  float: right;
   margin: 5px 0;
 }
 .vote, .vote-score{
@@ -46,18 +60,33 @@
   
      <h1>{{$question[0]->title}}</h1>
     
-    <div class="wrap">
+    <input type="hidden" id="vote" value="{{$vote}}">
+ 
+    <div class="wrap">  
      <div class="vote-span"><!-- voting-->
-        <div class="vote" data-action="up" title="Vote up">
+        <div class="vote" data-action="up" title="Vote up" id="up">
           <i class="fa fa-chevron-up"></i>
         </div><!--vote up--> 
         <div class="vote-score" id="vote-score">{{$question[0]->upvote-$question[0]->downvote}}</div>
-        <div class="vote" data-action="down" title="Vote down">
+        <div class="vote" data-action="down" title="Vote down" id="down">
           <i class="fa fa-chevron-down"></i>
         </div><!--vote down-->
       </div>
-      </div>
 
+      @if(Auth::user())
+      @if(Auth::user()->id==$question[0]->user_id)
+      <div class="update-span">
+        <div class="edit">
+          <i class="fa fa-pencil-square-o fa-3x"></i>
+        </div>
+        <div class="remove">
+             <i class="fa fa-remove fa-3x"></i>
+        </div>
+      </div>
+      @endif
+      @endif
+      </div>
+ 
 <div class="content">
    <?php
        $data=$question[0]->content;
@@ -80,12 +109,26 @@
 <input type="hidden" id="ques_id" value={{ Request::route('id') }}>
 
 <div class="cmt-container" >
+
+    <div class="new-com-bt">
+        <span>Write a comment ...</span>
+    </div>
+<div class="clear"></div>
+
+    <div class="new-com-cnt">
+        <textarea class="the-new-com"></textarea>
+        <div class="bt-add-com">Post comment</div>
+        <div class="bt-cancel-com">Cancel</div>
+    </div>
+    <div class="clear"></div>
+ 
     
      @foreach($answer as $answer)
     <div class="cmt-cnt">
         <img src="/img/{{$answer->avatar}}" />
         <div class="thecom">
-            <h5>{{$answer->name}}</h5><span data-utime="1371248446" class="com-dt">{{$answer->created_at}}</span>
+            <h5>{{$answer->name}}</h5>
+            <span data-utime="1371248446" class="com-dt">{{$answer->created_at}}</span>
             <br/>
             <p>
             {{$answer->content}}
@@ -93,31 +136,8 @@
         </div>
     </div>
      @endforeach 
+ 
 
-    <div class="cmt-cnt">
-        <img src="https://lh3.googleusercontent.com/-wWb5i7G84_U/UXTQa3hH4cI/AAAAAAAAATU/ORUCBqDb-dM/s550-no/IMG_7840.JPG" />
-        <div class="thecom">
-            <h5>Amine Kacem</h5><span data-utime="1371248446" class="com-dt">20-10-2017 08:36</span>
-            <br/>
-            <p>
-                This is my first comment,  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-            </p>
-        </div>
-    </div><!-- end "cmt-cnt" -->
-
-
-    <div class="new-com-bt">
-        <span>Write a comment ...</span>
-    </div>
-    <div class="new-com-cnt">
-
-   <!--     <input type="text" id="name-com" name="name-com" value="" placeholder="Your name" />
-        <input type="text" id="mail-com" name="mail-com" value="" placeholder="Your e-mail adress" />  -->
-        <textarea class="the-new-com"></textarea>
-        <div class="bt-add-com">Post comment</div>
-        <div class="bt-cancel-com">Cancel</div>
-    </div>
-    <div class="clear"></div>
 </div><!-- end of comments container "cmt-container" -->
 
 <script type="text/javascript">
@@ -173,17 +193,7 @@ $.ajaxSetup({
                         $('.new-com-cnt').hide('fast', function(){
                             $('.new-com-bt').show('fast');
    
-   /*                        
-     var newData='<div class="cmt-cnt">\
-      <img src="/img/"+html.image alt="" />\
-      <div class="thecom">\
-      <h5>"html.name"</h5>\
-      <span  class="com-dt">{{date('d-m-Y H:i')}}</span>\
-      <br/>\
-      <p>"html.msg"</p>\
-      </div>\
-      </div>'
-*/
+
        var newAns=document.createElement("div");
        newAns.className="cmt-cnt";
 
@@ -208,7 +218,7 @@ $.ajaxSetup({
         thecom.append(h5,span,br,p);
         newAns.append(img,thecom);
 
-                            $('.new-com-bt').before(newAns);  
+                            $('.new-com-bt').after(newAns);  
                         })
                     }  
                 });
