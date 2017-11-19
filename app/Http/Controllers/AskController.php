@@ -13,9 +13,10 @@ class AskController extends Controller
     {
         if(Auth::user())
         {
+            $update=0;
             $latest_id=DB::table('questions')->max('id');
             $latest_id++;
-            return view::make('ask_question')->with('ques_id',$latest_id);
+            return view::make('ask_question')->with('ques_id',$latest_id)->with('update',$update);
         }
         else
         {

@@ -24,7 +24,6 @@ class QuestionSubmitController extends Controller
 
         if($data==0)
         {
-
        $title=Input::get('title');
        $content=Input::get('myDoc');
        $content=htmlspecialchars($content);
@@ -43,8 +42,25 @@ class QuestionSubmitController extends Controller
             $tag_relation->tag_id=$tag_id;
             $tag_relation->save();    
         }
-
-
+        }
+        else
+        {
+           $question = question::find(Input::get('ques_id'));
+         //  $question->title = Input::get('title');
+           $question->content = htmlspecialchars(Input::get('myDoc'));
+          // $question->date = time();
+           $question->save(); 
+  
+/*
+    DB::table('tag_relations')->where('ques_id', '=', Input::get('ques_id'))->delete();         
+        foreach ($request->tag_id as $tag_id)
+        {
+            $tag_relation=new tag_relation;
+            $tag_relation->question_id=Input::get('ques_id');
+            $tag_relation->tag_id=$tag_id;
+            $tag_relation->save();    
+        }
+*/
         }
 
        return $this->show(Input::get('ques_id'));

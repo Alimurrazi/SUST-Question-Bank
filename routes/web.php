@@ -60,6 +60,7 @@ Route::post('/question_submit','QuestionSubmitController@submit');
 
 Route::get('/show_question/{id}','QuestionSubmitController@show');
 
+Route::get('/edit_question/{id}','QuestionEditController@index');
 /*
 Route::get('/show_question',function()
 {

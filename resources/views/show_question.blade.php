@@ -38,6 +38,14 @@
   float: right;
   margin: 5px 0;
 }
+.update-span-cnt
+{
+  float: right;
+}
+.update-com-cnt
+{
+  display: none;
+}
 .vote, .vote-score{
   clear: both;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -53,6 +61,7 @@
 <!-- <link type="text/css" rel="stylesheet" href="{{URL::asset('css/style(ans).css')}}"> -->
 <link type="text/css" rel="stylesheet" href="{{URL::asset('css/example(ans).css')}}">
 <script type="text/javascript" src="{{URL::asset('js/voting.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/updateQues.js')}}"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </head>
@@ -61,7 +70,7 @@
      <h1>{{$question[0]->title}}</h1>
     
     <input type="hidden" id="vote" value="{{$vote}}">
- 
+  
     <div class="wrap">  
      <div class="vote-span"><!-- voting-->
         <div class="vote" data-action="up" title="Vote up" id="up">
@@ -76,10 +85,10 @@
       @if(Auth::user())
       @if(Auth::user()->id==$question[0]->user_id)
       <div class="update-span">
-        <div class="edit">
+        <div class="edit" title="edit" id="edit">
           <i class="fa fa-pencil-square-o fa-3x"></i>
         </div>
-        <div class="remove">
+        <div class="remove" title="remove" id="remove">
              <i class="fa fa-remove fa-3x"></i>
         </div>
       </div>
@@ -88,6 +97,7 @@
       </div>
  
 <div class="content">
+  <input type="hidden" name="" id="ques_content" value="{{$question[0]->content}}">
    <?php
        $data=$question[0]->content;
        $content=htmlspecialchars_decode($data);
@@ -120,11 +130,23 @@
         <div class="bt-add-com">Post comment</div>
         <div class="bt-cancel-com">Cancel</div>
     </div>
+
     <div class="clear"></div>
  
     
      @foreach($answer as $answer)
     <div class="cmt-cnt">
+
+  <div class="comment">
+      <div class="update-span-cnt">
+        <div class="edit-cnt" title="edit" id="edit-cnt">
+          <i class="fa fa-pencil-square-o"></i>
+        </div>
+        <div class="remove-cnt" title="remove" id="remove-cnt">
+             <i class="fa fa-remove"></i>
+        </div>
+      </div>
+
         <img src="/img/{{$answer->avatar}}" />
         <div class="thecom">
             <h5>{{$answer->name}}</h5>
@@ -134,6 +156,14 @@
             {{$answer->content}}
             </p>
         </div>
+  </div>
+
+      <div class="update-com-cnt">
+        <textarea class="update-new-com"></textarea>
+        <div class="update-add-com">Update</div>
+        <div class="update-cancel-com">Cancel</div>
+    </div>
+
     </div>
      @endforeach 
  
@@ -149,6 +179,16 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
+
+        $('.edit-cnt').click(function(event){    
+            $(this).parent().parent().hide();
+            //$( this ).children( 'li.target' ).css("border", "3px double red");
+            //$(this '.update-com-cnt').show();
+            $(this).parent().parent().parent().find('.update-com-cnt').show();
+            $(this).parent().parent().parent().find('.update-new-com').value=$(this).parent().parent().find('.com-dt').innerHTML;
+            console.log($(this).parent().parent().innerHTML);
+        });
+
 
         $('.new-com-bt').click(function(event){    
             $(this).hide();
@@ -190,6 +230,7 @@ $.ajaxSetup({
                         theCom.val('');
                         theMail.val('');
                         theName.val('');
+                        $('.new-com-bt').after($('.new-com-cnt'));
                         $('.new-com-cnt').hide('fast', function(){
                             $('.new-com-bt').show('fast');
    
@@ -218,13 +259,13 @@ $.ajaxSetup({
         thecom.append(h5,span,br,p);
         newAns.append(img,thecom);
 
-                            $('.new-com-bt').after(newAns);  
+                            $('.new-com-cnt').after(newAns);  
                         })
                     }  
                 });
             }
         });
-
+ 
     });
 </script>
 
