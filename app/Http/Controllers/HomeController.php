@@ -26,8 +26,9 @@ class HomeController extends Controller
     {
         $ques_list=DB::table('questions')
                    ->orderBy('created_at', 'desc')
-                   ->get();
-        
+                   ->paginate(5);
+                   //->get();
+         
 
         $total_answer=[];
         $tag=[];
@@ -36,7 +37,7 @@ class HomeController extends Controller
         {
              $total_answer[]=DB::table('answers')
                             ->where('ques_id','=',$question->id)
-                            ->count();
+                            ->count(); 
              
 
 

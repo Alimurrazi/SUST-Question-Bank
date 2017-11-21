@@ -56,6 +56,22 @@
   font-weight: bold;
 }
 .vote-score{cursor: text}
+#myModal,#quesModal
+{
+  display: none;
+  text-align: center;
+}
+#right_ans
+{
+  margin-left: 5px;
+  margin-top: 0px;
+}
+.selected
+{
+   color: green;
+}
+
+
 	</style>
   
 <!-- <link type="text/css" rel="stylesheet" href="{{URL::asset('css/style(ans).css')}}"> -->
@@ -69,6 +85,20 @@
   
      <h1>{{$question[0]->title}}</h1>
     
+
+ <div id="quesModal" class="quesModal">
+ <div class="modal-dialog">
+ <div class="modal-content">
+           <div class="modal-body">
+  <h3>Do you want to delete the Question ?</h3>
+          <button class="yes-remove-ques">Yes</button>
+          <button class="no-remove-ques">NO</button>
+        </div>
+ </div>
+</div>
+</div>
+
+
     <input type="hidden" id="vote" value="{{$vote}}">
   
     <div class="wrap">  
@@ -88,7 +118,7 @@
         <div class="edit" title="edit" id="edit">
           <i class="fa fa-pencil-square-o fa-3x"></i>
         </div>
-        <div class="remove" title="remove" id="remove">
+        <div class="remove-ques" title="remove" id="remove">
              <i class="fa fa-remove fa-3x"></i>
         </div>
       </div>
@@ -138,6 +168,8 @@
     <div class="cmt-cnt">
 
   <div class="comment">
+      @if(Auth::user())
+  @if(Auth::user()->id==$answer->user_id)
       <div class="update-span-cnt">
         <div class="edit-cnt" title="edit" id="edit-cnt">
           <i class="fa fa-pencil-square-o"></i>
@@ -146,49 +178,194 @@
              <i class="fa fa-remove"></i>
         </div>
       </div>
+     @endif
+     @endif
 
         <img src="/img/{{$answer->avatar}}" />
         <div class="thecom">
             <h5>{{$answer->name}}</h5>
             <span data-utime="1371248446" class="com-dt">{{$answer->created_at}}</span>
+            <span class="right_ans"><i class="fa fa-check"></i></span>
             <br/>
             <p>
             {{$answer->content}}
             </p>
+            <input type="hidden" name="" class="answerId" value=" {{$answer->id}} ">
         </div>
   </div>
 
+ 
       <div class="update-com-cnt">
         <textarea class="update-new-com"></textarea>
-        <div class="update-add-com">Update</div>
-        <div class="update-cancel-com">Cancel</div>
+        <div class="update-bt" >Update</div>
+        <div class="cancel-bt">Cancel</div>
     </div>
+
+ <div id="myModal" class="myModal">
+ <div class="modal-dialog">
+ <div class="modal-content">
+           <div class="modal-body">
+  <h3>Do you want to delete the comment ?</h3>
+          <button class="yes-remove-cnt">Yes</button>
+          <button class="no-remove-cnt">NO</button>
+           </div>
+</div>
+</div>
+</div>
 
     </div>
      @endforeach 
  
+<!--     -->
+
+  <!-- Modal -->
+  <!--
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+
+        <div class="modal-body">
+  <h3>Do you want to delete the comment ?</h3>
+        <div class="update-bt">Yes</div>
+        <div class="cancel-bt">No</div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-basic" data-dismiss="modal">Close</button>
+        </div>
+      
+    </div>
+  </div>
+</div>
+-->
+ 
+<!--    -->
 
 </div><!-- end of comments container "cmt-container" -->
 
 <script type="text/javascript">
+  var updateanswer;
+  var answerId;
+  var currentAnswer;
    $(function(){ 
-        //alert(event.timeStamp);
-
+   $('.myModal').hide();
+   $('.quesModal').hide();
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
 
-        $('.edit-cnt').click(function(event){    
+$('.right_ans').click(function(){
+   answerId=$(this).parent().find('.answerId').val();
+   console.log(answerId);
+   $(this).addClass("selected");
+   $.ajax({
+       type: "POST",
+       url: "/select-answer/"+answerId,
+       success: function()
+       {
+         console.log("3:08");
+       }
+   });
+});
+
+        $('.edit-cnt').click(function(event){
+        //console.log($(this).parent().parent().find('p').text());    
             $(this).parent().parent().hide();
-            //$( this ).children( 'li.target' ).css("border", "3px double red");
-            //$(this '.update-com-cnt').show();
             $(this).parent().parent().parent().find('.update-com-cnt').show();
-            $(this).parent().parent().parent().find('.update-new-com').value=$(this).parent().parent().find('.com-dt').innerHTML;
-            console.log($(this).parent().parent().innerHTML);
+            $(this).parent().parent().parent().find('.update-new-com').html($(this).parent().parent().find('p').html());
+        console.log($(this).parent().parent().find('p').html());
+            answerId=$(this).parent().parent().find('.answerId').val();
+        });
+        
+       $('.remove-cnt').click(function()
+       {
+         console.log("why");
+        //  $('#myModal').show();
+          //$(this).parent().find('#myModal').show();
+        $(this).parent().parent().parent().find('#myModal').show();   
+       }); 
+
+      
+      $('.yes-remove-cnt').click(function()
+      {
+           answerId=$(this).parent().parent().parent().parent().parent().find('.answerId').val();
+           $(this).parent().parent().parent().parent().parent().remove();
+           console.log(answerId);
+           $.ajax({
+               type: "POST",
+               url: "/remove-answer/"+answerId,
+               success: function(e)
+               {
+                  $('.myModal').hide();
+               }
+           });
+      });
+
+      $('.no-remove-cnt').click(function()
+      {
+          $('.myModal').hide();
+      });
+
+      $('.remove-ques').click(function()
+       {
+            $(this).parent().parent().parent().find('.quesModal').show();
+       });
+
+       $('.yes-remove-ques').click(function()
+        {
+          var questionId=$('#ques_id').val();
+          console.log(questionId);
+          $.ajax(
+          {
+            type: "POST",
+            url: "/remove_question/"+questionId,
+            success: function()
+            {
+               window.location.href = "/home/";   
+            }
+          });
         });
 
+       $('.no-remove-ques').click(function(){
+           $('.quesModal').hide();
+       });
+
+       $('.update-bt').click(function()
+       {
+           // var updateComment=
+           updateanswer=$(this).parent().find('.update-new-com').val();//.parent().find('update-new-com');
+           currentAnswer=$(this).parent().parent().find('p').html(updateanswer);
+          // console.log(currentAnswer);
+           console.log(answerId);
+           console.log(updateanswer);
+           if(!updateanswer)
+           {
+             alert('You need to write a comment!');
+           }
+           else
+           {
+              $.ajax({
+                 type: "Post",
+                 url: "/edit-answer/"+answerId,
+                 data: 'updateAns='+updateanswer,
+                 success: function(e)
+                 {
+                     console.log("well done rana!");
+                    $(".update-com-cnt").hide();
+                    $(".comment").show();      
+                 }
+              });
+           }
+       });
+
+       $('.cancel-bt').click(function()
+         {
+                    $(".update-com-cnt").hide();
+                    $(".comment").show();
+         });
 
         $('.new-com-bt').click(function(event){    
             $(this).hide();

@@ -34,7 +34,7 @@
                         <div class="menu"> 
                             <ul class="nav nav-tabs" role="tablist">
                 <!--    <li role="presentation" class="active"><a href="index.html">Home</a></li> -->
-                                <li role="presentation"><a href="#">Tags</a></li>
+                                <li role="presentation"><a href="/tag">Tags</a></li>
                                 <li role="presentation"><a href="/home">Questions</a></li>
                             <li role="presentation"><a href="/ask_question">Ask Questions</a></li>
                                 <li role="presentation"><a href="#">Academic Archieve</a>
@@ -75,7 +75,8 @@
     
     <div class="container">
         <div class="row">
-            <div class="boxs">              
+            <div class="boxs">
+               <a href="/home">              
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="0.8s">
                         <div class="align-center">
@@ -86,12 +87,11 @@
                             <p>
                              List of all questions
                             </p>
-                            <div class="ficon">
-                                <a href="" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
+                </a>
+                <a href="ask_question">
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="1.3s">
                         <div class="align-center">
@@ -102,12 +102,11 @@
                             <p>
                              Here you can ask for a new question.
                             </p>
-                            <div class="ficon">
-                                <a href="" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
+                </a>
+                <a href="#">
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="1.3s">
                         <div class="align-center">
@@ -118,19 +117,17 @@
                             <p>
                              An archieve for questions of previous years in SUST
                             </p>
-                            <div class="ficon">
-                                <a href="" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
-                
+                </a>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="bg">                
+            <div class="bg">
+               <a href="/tag">                
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="0.8s">
                         <div class="align-center">
@@ -141,12 +138,11 @@
                             <p>
                              Where you can find your questions according to tags
                             </p>
-                            <div class="ficon">
-                                <a href="" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
+                </a>
+                <a href="/users">
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="1.3s">
                         <div class="align-center">
@@ -158,12 +154,11 @@
                             <p>
                              List of users.
                             </p>
-                            <div class="ficon">
-                                <a href="" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
+                </a>
+                <a href="#">
                 <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="1.3s">
                         <div class="align-center">
@@ -174,13 +169,10 @@
                             <p>
                              Common questions that maybe haunt you
                             </p>
-                            <div class="ficon">
-                                <a href="" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
-                
+                </a>
             </div>
         </div>
     </div>

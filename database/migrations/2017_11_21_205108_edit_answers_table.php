@@ -3,18 +3,19 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
- 
-class EditQuestionTable extends Migration
+
+class EditAnswersTable extends Migration
 {
     /**
      * Run the migrations.
      *
-     * @return void 
+     * @return void
      */
     public function up()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->string('title'); 
+        Schema::table('answers', function (Blueprint $table) {
+            $table->integer('selected')
+                  ->default(0); 
         });
     }
 
@@ -25,6 +26,6 @@ class EditQuestionTable extends Migration
      */
     public function down()
     {
-            $table->dropColoumn('title');
+         $table->dropColoumn('selected');
     }
 }

@@ -61,18 +61,24 @@ Route::post('/question_submit','QuestionSubmitController@submit');
 Route::get('/show_question/{id}','QuestionSubmitController@show');
 
 Route::get('/edit_question/{id}','QuestionEditController@index');
+
+Route::post('/remove_question/{id}','removeQuesAnsController@question');
 /*
 Route::get('/show_question',function()
 {
       return view('show_question'); 
 });
 */
-  
+   
 
 Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'TagController@index'));
 
 Route::get('autocomplete-ajax',array('as'=>'tagcomplete.ajax','uses'=>'TagController@ajax'));
 
 Route::post('/add-answer/{id}','AnswerSubmitController@submit');
+Route::post('/edit-answer/{id}','AnswerSubmitController@edit');
+Route::post('/remove-answer/{id}','removeQuesAnsController@answer');
+
+Route::post('/select-answer/{id}','AnswerSubmitController@select');
 
 Route::post('/voting/{id}','VotingController@submit');

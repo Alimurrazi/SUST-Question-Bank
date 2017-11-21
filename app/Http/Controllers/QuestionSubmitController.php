@@ -86,7 +86,7 @@ class QuestionSubmitController extends Controller
 
          $answer=DB::table('answers')
                  ->join('users','answers.user_id','=','users.id')
-                 ->select('users.name','users.avatar','answers.content','answers.created_at')
+                 ->select('users.id as user_id','users.name','users.avatar','answers.content','answers.created_at','answers.id')
                  ->where('ques_id','=',$id)
                  ->orderBy('answers.id', 'desc')
                  ->get();

@@ -35,4 +35,21 @@ class AnswerSubmitController extends Controller
 
       return response()->json(array('msg'=> $msg,'name'=>$name,'image'=>$image), 200);
     }
+
+    public function edit($id,Request $request)
+    {
+       //echo $request->updateAns;
+      //$question = question::find(Input::get('ques_id'));
+        $answer=Answer::find($id);
+        $answer->content=$request->updateAns;
+        $answer->save();
+      //return $request;
+    }
+
+    public function select($id,Request $request)
+    {
+      $answer=Answer::find($id);
+      $answer->selected=1;
+      $answer->save();
+    }
 }

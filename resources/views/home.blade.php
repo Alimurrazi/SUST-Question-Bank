@@ -59,13 +59,13 @@
                   <?php
                    $i=0;
                   ?>
-                @foreach($list as $list)
-   <a href="/show_question/{{$list->id}}">
+                @foreach($list as $ques_list)
+   <a href="/show_question/{{$ques_list->id}}">
    <div class="single-ques">                
-                <div class="title">{{$list->title}}</div>
+                <div class="title">{{$ques_list->title}}</div>
                 <div id="clear"></div> 
                   <?php
-       $data=$list->content;
+       $data=$ques_list->content;
        $content=htmlspecialchars_decode($data);
        echo $content;
                   ?>
@@ -73,7 +73,7 @@
                   <div id="all_tag">
                    
                   @php
-                  $newtag = json_decode($ques_tag[$list->id], true);
+                  $newtag = json_decode($ques_tag[$ques_list->id], true);
                   @endphp
                   @foreach($newtag as $ntag) 
                   <span class="tag">{{$ntag["tag_name"]}}</span>
@@ -82,7 +82,7 @@
                   </div>
                   <br>
                   <div id="dateAnswer">
-                    <div id="date">{{$list->created_at}}</div>
+                    <div id="date">{{$ques_list->created_at}}</div>
                     <div id="answer">
                     @if($total_answer[$loop->index]==0)  
                     no answer yet
@@ -94,7 +94,9 @@
 
                  </div>
                 @endforeach
+                @include('pagination.default', ['paginator' => $list]);
                 </div>
+                
             </div>
         </div>
     </div>

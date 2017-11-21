@@ -12,6 +12,7 @@ class TagController extends Controller
     public function all()
     {
     	$tag=DB::table('tags')
+           ->orderBy('tag_name')
     	     ->get();
         
         $count=[];
@@ -36,7 +37,7 @@ class TagController extends Controller
                            ->where('tag_relations.tag_id','=',$id)
                            ->select('questions.id','questions.title','questions.content','questions.created_at','tag_relations.tag_id')
                            ->orderBy('created_at', 'desc')
-                           ->get();
+                           ->paginate(5);
         
     //    return $ques_list;
 
