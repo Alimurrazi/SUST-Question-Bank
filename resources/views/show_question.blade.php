@@ -70,6 +70,10 @@
 {
    color: green;
 }
+.cmt-cnt
+{
+  border-bottom-color: red;
+}
 
 
 	</style>
@@ -185,7 +189,19 @@
         <div class="thecom">
             <h5>{{$answer->name}}</h5>
             <span data-utime="1371248446" class="com-dt">{{$answer->created_at}}</span>
+            
+            @if(AUth::user())
+            @if(Auth::user()->id==$question[0]->user_id)
+            @if($answer->selected==0)
             <span class="right_ans"><i class="fa fa-check"></i></span>
+            @endif
+            @endif
+            @endif
+
+            @if($answer->selected==1)
+            <span class="right_ans selected" title="Answer is selected as right"><i class="fa fa-check"></i></span>
+            @endif
+
             <br/>
             <p>
             {{$answer->content}}

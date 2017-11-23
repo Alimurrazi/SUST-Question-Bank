@@ -47,6 +47,8 @@ Route::get('/home', 'HomeController@index');
 Route::get('/profile/{id}','UserController@profile'); 
 Route::post('/profile','UserController@update');
 
+Route::get('/notification/{id}','NotificationController@index');
+
 /*
 Route::get('/ask_question',function()
 {
@@ -82,3 +84,17 @@ Route::post('/remove-answer/{id}','removeQuesAnsController@answer');
 Route::post('/select-answer/{id}','AnswerSubmitController@select');
 
 Route::post('/voting/{id}','VotingController@submit');
+
+Route::get('/academic_archive', function () {
+    return view('academic_archive');
+});
+
+Route::post('/academic_archive_submitted','academicArchiveController@store');
+
+Route::get('/academic_archive_file_view', function () {
+    return view('academic_archive_file_view');
+});
+
+Route::get('/academic_archive_file_view','academicArchiveController@show');
+
+Route::post('/academic_archive_file_view','academicArchiveController@search');

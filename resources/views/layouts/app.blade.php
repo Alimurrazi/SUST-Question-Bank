@@ -84,7 +84,7 @@
                 <!--    <li role="presentation" class="active"><a href="index.html">Home</a></li> -->
                                 <li role="presentation"><a href="{{url('/tag')}}">Tags</a></li>
                                 <li role="presentation"><a href="{{url('/home')}}">Questions</a></li>
-                            <li role="presentation"><a href="{{url('/ask_question')}}">Ask Questions</a></li>
+                            <li role="presentation"><a href="{{url('/ask_question')}}">Ask Question</a></li>
                             <li role="presentation"><a href="{{url('/users')}}">users</a></li>
                                 <li role="presentation"><a href="{{url('#')}}">Academic Archieve</a>
                                 </li>
@@ -124,7 +124,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-    <li><a href="/profile/{{Auth::user()->id}}"><i class="fa fa-btn fa-user"></i>Profile</a></li>                                 
+    <li><a href="/profile/{{Auth::user()->id}}">Profile<i class="fa fa-btn fa-user" style="padding-left: 8px;"></i></a></li>                                 
                                 </ul>
                             </li>
                         @endif

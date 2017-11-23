@@ -90,7 +90,7 @@ img.intLink { border: 0;margin: 2px }
 #title
 {
   margin-bottom: 15px;
-  min-width: 200px;
+  min-width: 450px;
       transition: height 0.25s;
     resize:none;
     overflow:hidden;

@@ -9,6 +9,7 @@
   <body>
         <div class="container">
         @foreach($user as $user)
+        <a href="/profile/{{$user->id}}" alt="">
             <div class="bg">                
                     <div class="col-md-4">
                     <div class="wow bounceIn" data-wow-offset="0" data-wow-delay="1.3s">
@@ -22,13 +23,11 @@
                              List of users.
                             </p>
                           -->
-                            <div class="ficon">
-                                <a href="/profile/{{$user->id}}" alt="">Learn more</a> 
-                            </div>
                         </div>
                     </div>
                 </div>
               </div>
+            </a>
             @endforeach
           </div>
   </body>
