@@ -7,32 +7,41 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use Auth;
 use App\Answer;
+use App\user_activity;
 
 class AnswerSubmitController extends Controller
 {
     public function submit($id,Request $request)
     {
-    	//echo Input::all();
-      $msg = $request->comment;
+    $msg = $request->comment;
 
-      $user=DB::table('users')
+    $user=DB::table('users')
             ->where('id','=',Auth::user()->id)
             ->first();
 
-      $name=$user->name;
-      $image=$user->avatar;
-/*
- DB::table('answers')->insert(
-    ['user_id' => Auth::user()->id,'ques_id'=> $id,'content'=>$msg]
-);
-*/
-     
-     $answer=new Answer;
-     $answer->user_id=Auth::user()->id;
-     $answer->ques_id=$id;
-     $answer->content=$msg;
-     $answer->save();
+    $name=$user->name;
+    $image=$user->avatar;
 
+    $answer=new Answer;
+    $answer->user_id=Auth::user()->id;
+    $answer->ques_id=$id;
+    $answer->content=$msg;
+    $answer->save();
+
+    $question_submitter_id=DB::table('questions')
+                           ->where('id','=',$id)
+                           ->value('user_id');
+    
+    if($question_submitter_id!=Auth::user()->id)
+    {  
+    $user_activity=New user_activity;
+    $user_activity->user_id=$question_submitter_id;
+    $user_activity->helper_user_id=Auth::user()->id;
+    $user_activity->ques_id=$id;
+    $user_activity->activity=1;                       
+    $user_activity->save();
+    }
+    
       return response()->json(array('msg'=> $msg,'name'=>$name,'image'=>$image), 200);
     }
 

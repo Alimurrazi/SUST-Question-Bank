@@ -17,6 +17,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('app\Answer');
     }
+    public function user_activity()
+    {
+        return $this->hasMany('app\user_activity');
+    }
     use Notifiable; 
 
     /**

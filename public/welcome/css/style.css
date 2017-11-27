@@ -52,7 +52,8 @@ a:hover {
 .navbar-brand h1 {
 	float: left;
 	line-height:20px;
-	padding: 20px;
+  /*	padding: 20px;  */
+	padding-top: 20px;
 	font-size: 30px;
 	margin-top:-15px;
 	color:#6D9C91;		
@@ -82,7 +83,8 @@ a:hover {
 }
 .nav-tabs > li > a {	
 	margin-bottom:20px;
-	margin-right: 20px;
+	/*margin-right: 20px; */
+	margin-right: 10px;
 	line-height: 1.42857143;
 	border-bottom: 3px solid transparent;
 	border-radius:0;

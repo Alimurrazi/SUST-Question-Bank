@@ -21,7 +21,7 @@
                 </div>
               </div>
             </a>
-            
+             
                     <a href="/profile/{{$user->id}}" alt="">
             <div class="bg">                
                     <div class="col-md-4">

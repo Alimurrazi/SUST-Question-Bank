@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src={{ URL::asset('js/notification.js') }}></script>
 
 
     <style type="text/css">
@@ -40,6 +41,18 @@
             background-color: #b9a7a7;
             padding: 5px;
          }
+         #number_notification
+         {
+            position: absolute;
+            z-index: 100;
+            width: 30px;
+            height: 30px;
+            border-radius:50%;
+            background-color: green;
+            color: white;
+            padding: 2px;
+            text-align: center;
+         }
     </style>
 
     <!-- Scripts -->
@@ -52,6 +65,9 @@
 <body>
 
     <div id="app">
+        @if(Auth::user())
+        <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
+        @endif
         <nav class="navbar navbar-default navbar-static-top" style="background-color: #f5f5f5">
             <div class="container">
 
@@ -68,16 +84,6 @@
                                 <a href="{{url('/')}}"><h1 style="margin-top: 5px">Question Bank</h1></a>
                             </div>
 
-                    <!-- Branding Image -->
-                    <!--
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        SUST Question Bank
-                    </a>
-                     
-                    <a class="navbar-brand" href="{{ url('/ask_question') }}">
-                        Ask Question
-                    </a>
-                    -->
 
                                             <div class="menu">
                             <ul class="nav nav-tabs" role="tablist">
@@ -87,7 +93,13 @@
                             <li role="presentation"><a href="{{url('/ask_question')}}">Ask Question</a></li>
                             <li role="presentation"><a href="{{url('/users')}}">users</a></li>
                                 <li role="presentation"><a href="{{url('#')}}">Academic Archieve</a>
+                                @if(Auth::user())
+                                <li role="presentation" id="notification">
+                            <span id="number_notification"></span>
+                                    <a href="#">Notification</a>
+
                                 </li>
+                                @endif
                             </ul>
                         </div>
  
@@ -134,6 +146,27 @@
         </nav>
         
         <div class="container">
+            
+          <!-- Modal-->
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
         @yield('content')
         </div>
     </div>

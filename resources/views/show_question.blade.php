@@ -366,7 +366,7 @@ $('.right_ans').click(function(){
               $.ajax({
                  type: "Post",
                  url: "/edit-answer/"+answerId,
-                 data: 'updateAns='+updateanswer,
+                 data: 'updateAns='+updateanswer, 
                  success: function(e)
                  {
                      console.log("well done rana!");

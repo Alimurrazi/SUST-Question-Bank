@@ -95,6 +95,13 @@ Route::get('/academic_archive_file_view', function () {
     return view('academic_archive_file_view');
 });
 
-Route::get('/academic_archive_file_view','academicArchiveController@show');
+Route::get('/test',function()
+{
+   return view('test');
+});
 
+Route::post('/check_notifications','NotificationController@index');
+
+Route::get('/academic_archive_file_view','academicArchiveController@show');
+ 
 Route::post('/academic_archive_file_view','academicArchiveController@search');

@@ -10,7 +10,7 @@ class question extends Model
     {
         return $this->belongsTo('app\User'); 
     }
-    public function tag_relation()
+    public function tag_relation() 
     {
     	return $this->belongsTo('app\tag_relation'); 
     }
@@ -21,5 +21,9 @@ class question extends Model
     public function user_vote()
     {
         return $this->belongsTo('app\user_vote');
+    }
+    public function user_activity()
+    {
+        return $this->hasMany('app\user_activity');
     }
 }
