@@ -52,6 +52,7 @@
             color: white;
             padding: 2px;
             text-align: center;
+            display: none;
          }
     </style>
 
@@ -146,7 +147,7 @@
         </nav>
         
         <div class="container">
-            
+
           <!-- Modal-->
     <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">

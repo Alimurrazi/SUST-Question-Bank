@@ -105,3 +105,5 @@ Route::post('/check_notifications','NotificationController@index');
 Route::get('/academic_archive_file_view','academicArchiveController@show');
  
 Route::post('/academic_archive_file_view','academicArchiveController@search');
+
+Route::post('/remove_notification','NotificationController@remove');

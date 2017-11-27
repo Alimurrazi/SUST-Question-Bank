@@ -5,8 +5,26 @@ $(document).ready(function(){
    $("#notification").click(function(){
     // console.log("Hello!"); 
     //data-toggle="modal"  data-target="#myModal"
+     $("#number_notification").hide();
      $("#notification").attr("data-toggle", "modal");
      $("#notification").attr("data-target", "#myModal");
+     
+     
+    $.ajaxSetup({
+     headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   }
+   });
+
+   $.ajax({
+     type: "POST",
+     url: "/remove_notification",
+     success: function()
+     {
+        
+     }
+   }); 
+
    });
 
    function call()
@@ -26,13 +44,15 @@ $(document).ready(function(){
       success: function(data)
       {
       	console.log(data);
+      	if(data.notification_count!=0)
+      		$("#number_notification").show(); 
       	for(var i=0;i<data.notification_count;i++)
       	{
-      		var url="/show_question/"+data.activity_list[i].id;
+      	var url="/show_question/"+data.activity_list[i].id;
       		//$(".modal-body").html
     //  $(".modal-body").append( "<div><a href="'/show_question'+data.activity_list[i].id">'data.activity_list[i].name' answered your question -'data.activity_list[i].title'</div>" );
      // $(".modal-body").append("<div class="notification_list">"+data.activity_list[i].name+" answered your question "+data.activity_list[i].title+"</div>")
-         $(".modal-body").append("<div class='notification_list'>"+"<a href="+url+">"+data.activity_list[i].name+" answered your question "+data.activity_list[i].title+"</a></div>");
+        $(".modal-body").append("<div class='notification_list'>"+"<a href="+url+">"+data.activity_list[i].name+" answered your question "+data.activity_list[i].title+"</a></div>");
       		//console.log(data.activity_list[i].title);
      // 		var url="/show_question/"+data.activity_list[i].id;
     //$(".modal-body").append("<a href='"+url+"'>"+Keno amon hoy+"</a>");

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\notification_counter;
 use DB;
 use View;
+use Auth;
 
 class NotificationController extends Controller
 {
@@ -22,7 +23,7 @@ class NotificationController extends Controller
 
          if($notification)
          {
-         	$check=0; //return data only special occeasion
+
             if($user_activity->id>$notification->last_activity)
             {
                $notification_counter=notification_counter::where('user_id',$request->user_id)->first();
@@ -31,12 +32,8 @@ class NotificationController extends Controller
                //$notification_counter->increment('count');
                $notification_counter->last_activity=$user_activity->id;
                $notification_counter->save();
-               $check=0;
             }
-            
-            if($check==0)
-            {
-            $check=1;	
+
             $notification_count=DB::table('notification_counter')
                                 ->where('user_id','=',$request->user_id)
                                 ->value('count');
@@ -50,7 +47,7 @@ class NotificationController extends Controller
                            ->get();                    
 
           return response()->json(array('notification_count'=> $notification_count,'activity_list'=> $activity_list), 200);
-           }
+
            
          }  
          else
@@ -61,5 +58,12 @@ class NotificationController extends Controller
             $notification_counter->last_activity=$user_activity->id;
             $notification_counter->save();
          }                           
+    }
+    public function remove()
+    {
+    	echo "kire ki obosta";
+    	DB::table('notification_counter')
+            ->where('user_id', Auth::user()->id)
+            ->update(['count' => 0]);
     }
 }
