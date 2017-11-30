@@ -18,10 +18,11 @@ $(document).ready(function(){
 
    $.ajax({
      type: "POST",
-     url: "/remove_notification",
+     url: "/remove_notification", 
      success: function()
      {
-        
+         console.log("remove");
+        // call();
      }
    }); 
 
@@ -29,7 +30,7 @@ $(document).ready(function(){
 
    function call()
    {
- 
+     console.log("hello");
    user_id=$('#user_id').val();
    $.ajaxSetup({
    headers: {
@@ -46,13 +47,13 @@ $(document).ready(function(){
       	console.log(data);
       	if(data.notification_count!=0)
       		$("#number_notification").show(); 
-      	for(var i=0;i<data.notification_count;i++)
+      	for(var i=0;i<5;i++)
       	{
       	var url="/show_question/"+data.activity_list[i].id;
       		//$(".modal-body").html
     //  $(".modal-body").append( "<div><a href="'/show_question'+data.activity_list[i].id">'data.activity_list[i].name' answered your question -'data.activity_list[i].title'</div>" );
      // $(".modal-body").append("<div class="notification_list">"+data.activity_list[i].name+" answered your question "+data.activity_list[i].title+"</div>")
-        $(".modal-body").append("<div class='notification_list'>"+"<a href="+url+">"+data.activity_list[i].name+" answered your question "+data.activity_list[i].title+"</a></div>");
+        $("#notification-body").append("<div class='notification_list'><li>"+"<a href="+url+">"+data.activity_list[i].name+" answered your question "+'" '+data.activity_list[i].title+' "'+"</a></li></div>");
       		//console.log(data.activity_list[i].title);
      // 		var url="/show_question/"+data.activity_list[i].id;
     //$(".modal-body").append("<a href='"+url+"'>"+Keno amon hoy+"</a>");

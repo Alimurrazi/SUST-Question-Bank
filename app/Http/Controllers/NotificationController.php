@@ -43,10 +43,11 @@ class NotificationController extends Controller
           $activity_list=DB::table('user_activities')
                            ->join('users','users.id','=','user_activities.helper_user_id')
                            ->join('questions','questions.id','=','user_activities.ques_id')
+                           ->orderBy('user_activities.id','desc')
                            ->select('questions.id','users.name','questions.title')
                            ->get();                    
 
-          return response()->json(array('notification_count'=> $notification_count,'activity_list'=> $activity_list), 200);
+     return response()->json(array('notification_count'=> $notification_count,'activity_list'=> $activity_list), 200);
 
            
          }  

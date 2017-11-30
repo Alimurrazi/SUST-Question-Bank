@@ -74,6 +74,23 @@
 {
   border-bottom-color: red;
 }
+.yes-remove-cnt
+{
+  margin-right: 5px;
+}
+.no-remove-cnt
+{
+  margin-left:  5px;
+}
+.yes-remove-ques
+{
+  margin-right: 5px;
+}
+.no-remove-ques
+{
+  margin-left:  5px;
+}
+
 
 
 	</style>
@@ -95,8 +112,8 @@
  <div class="modal-content">
            <div class="modal-body">
   <h3>Do you want to delete the Question ?</h3>
-          <button class="yes-remove-ques">Yes</button>
-          <button class="no-remove-ques">NO</button>
+          <button class="yes-remove-ques" style="width: 25%;background-color: #fc7169;color: white">Yes</button>
+          <button class="no-remove-ques" style="width: 25%;background-color: #b6bece;color: white">NO</button>
         </div>
  </div>
 </div>
@@ -119,10 +136,10 @@
       @if(Auth::user())
       @if(Auth::user()->id==$question[0]->user_id)
       <div class="update-span">
-        <div class="edit" title="edit" id="edit">
+        <div class="edit" title="edit" id="edit" style="color: #546E7A">
           <i class="fa fa-pencil-square-o fa-3x"></i>
         </div>
-        <div class="remove-ques" title="remove" id="remove">
+        <div class="remove-ques" title="remove" id="remove" style="color: red">
              <i class="fa fa-remove fa-3x"></i>
         </div>
       </div>
@@ -175,10 +192,10 @@
       @if(Auth::user())
   @if(Auth::user()->id==$answer->user_id)
       <div class="update-span-cnt">
-        <div class="edit-cnt" title="edit" id="edit-cnt">
+        <div class="edit-cnt" title="edit" id="edit-cnt" style="color: #546E7A">
           <i class="fa fa-pencil-square-o"></i>
         </div>
-        <div class="remove-cnt" title="remove" id="remove-cnt">
+        <div class="remove-cnt" title="remove" id="remove-cnt" style="color: red">
              <i class="fa fa-remove"></i>
         </div>
       </div>

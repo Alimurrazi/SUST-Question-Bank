@@ -37,7 +37,7 @@
                                 <li role="presentation"><a href="/tag">Tags</a></li>
                                 <li role="presentation"><a href="/home">Questions</a></li>
                             <li role="presentation"><a href="/ask_question">Ask Questions</a></li>
-                                <li role="presentation"><a href="#">Academic Archieve</a>
+                                <li role="presentation"><a href="/academic_archive_choice">Academic Archieve</a>
                                 </li>
  
                           @if (Route::has('login'))

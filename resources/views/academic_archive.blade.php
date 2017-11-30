@@ -18,21 +18,21 @@
 
    				<div class="jumbotron jumbotron-fluid">
    					<div class="container">
-   						<h1 class="display-3">Quesion Paper</h1>
+   						<h1 class="display-3">Add Quesion</h1>
 
    						<form  enctype="multipart/form-data" id="upload" method="post"  action="{{action('academicArchiveController@store')}}" > 
    							{{ csrf_field() }}
 
 
-   							<select name="subject" class="form-control">
-   								<option value="null">Select Subject</option>
+   							<select name="subject" class="form-control" required>
+   								<option disabled selected hidden value="">Select Subject</option>
    								<option value="C">C</option>
    								<option value="java">Java</option>
    								<option value="S/w">S/W E</option>
    							</select>
    							<br>
-   							<select name="semester" class="form-control" >
-   								<option value="null">Select Semester</option>
+   							<select name="semester" class="form-control" required>
+   								<option disabled selected hidden value="">Select Semester</option>
    								<option value="1/1">1/1</option>
    								<option value="1/2">1/2</option>
    								<option value="2/1">2/1</option>
@@ -46,7 +46,7 @@
    							<br>
    							<!-- session start--> 
    							<select required="true" class="form-control" name="session" id="session">
-   								<option hidden="true">Please select a Session</option>
+   								<option disabled selected hidden value="">Please select a Session</option>
 
    							</select> 
 
@@ -66,12 +66,12 @@
 
    							<!-- session ended--> 
    							<br>
-   							<input class="form-control" type="text" placeholder="Teacher's Name" name="teacher">
+   							<input class="form-control" type="text" placeholder="Teacher's Name" name="teacher" required="true">
    							<br>
 
    							<!-- question type started-->       
-   							<select  required="true" id="type" class="form-control" name="type">
-   								<option hidden >Please select a Question Type</option>
+   							<select  required id="type" class="form-control" name="type">
+   								<option disabled selected hidden value="" >Please select a Question Type</option>
    								<option value="Final">Final</option>
 
    							</select>  
@@ -92,7 +92,7 @@
    							<br>
 
    							<div class="form-group">
-   								<input type="file" class="form-control-file" id="exampleFormControlFile1" multiple="jpg" name="image">
+   								<input required="" type="file" class="form-control-file" id="exampleFormControlFile1" multiple="jpg" name="image">
    							</div>
 
    							<div>

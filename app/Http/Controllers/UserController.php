@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use Image;
 use View;
+use File;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
                 ->select('questions.id','questions.title')
                 ->distinct()
                 ->get();
-
+ 
     return view::make('profile')->with('user',$user)->with('asked',$asked)->with('answered',$answered);
     }
 
@@ -36,15 +37,16 @@ class UserController extends Controller
        if(Input::hasFile('avatar')) 
       //  if($request->file('avatar'))
        {
-       	$avatar=$request->file('avatar');
+       	$avatar=Input::file('avatar');
        	$filename=time().'.'.$avatar->getClientOriginalExtension();
-     Image::make($avatar)->resize(300,300)->save(public_path('/img/'.$filename));
+        $avatar->move(public_path().'/'.'img'.'/',$filename);
+    // Image::make($avatar)->resize(300,300)->save(public_path('/img/'.$filename));
 
         $user=Auth::user();
         $user->avatar=$filename;
         $user->save();
        }
-
-       return view('profile',array('user'=>Auth::user()));
+       return $this->profile(Auth::user()->id); 
+       //return view('profile',array('user'=>Auth::user()));
     }
 }

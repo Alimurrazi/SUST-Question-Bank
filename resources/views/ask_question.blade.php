@@ -69,9 +69,10 @@ input[type=text], select {
     box-sizing: border-box;
 }
 .intLink { cursor: pointer; }
-img.intLink { border: 0;margin: 2px }
+img.intLink { border: 0;margin: 2px;padding-right: 2px }
 #toolBar1 select { font-size:10px; }
 #textBox {
+  margin-top: 2px;
   width: 450px;
   min-height: 200px;
   border: 1px #000000 solid;
@@ -95,10 +96,18 @@ img.intLink { border: 0;margin: 2px }
     resize:none;
     overflow:hidden;
 }
+#textBox ul,li 
+{
+  list-style: unset;
+}
 #editMode label { cursor: pointer; }
 .select2.select2-container.select2-container--default
 {
   width: 500px;
+}
+img {
+  max-width:250px;
+  max-height:250px;
 }
 </style>
 </head>
@@ -164,8 +173,8 @@ img.intLink { border: 0;margin: 2px }
 
 <p id="editMode"><input type="hidden" name="switchMode" id="switchBox" onchange="setDocMode(this.checked);" />   </p>
 
-
-<input type="submit" value="Submit" />
+<button type="submit" class="btn btn-primary">Submit</button>
+<!-- <input type="submit" value="Submit" />  -->
 
 </form>
 

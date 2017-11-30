@@ -45,7 +45,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index'); 
  
 Route::get('/profile/{id}','UserController@profile'); 
-Route::post('/profile','UserController@update');
+Route::post('/update-profile','UserController@update');
 
 Route::get('/notification/{id}','NotificationController@index');
 
@@ -102,8 +102,34 @@ Route::get('/test',function()
 
 Route::post('/check_notifications','NotificationController@index');
 
-Route::get('/academic_archive_file_view','academicArchiveController@show');
+
+/***added by me***/
+
+Route::get('/academic_archive_choice', function () {
+    return view('academic_archieve_welcome');
+});
+
+Route::get('/academic_archive', function () {
+    return view('academic_archive');
+});
+
+Route::post('/academic_archive_submitted','academicArchiveController@store');
+
+Route::get('/academic_archive_file_view', function () {
+    return view('academic_archive_file_view');
+});
  
+Route::get('/academic_archive_file_view','academicArchiveController@show');
+
 Route::post('/academic_archive_file_view','academicArchiveController@search');
+
+
+Route::get('/academic_archive_album_view', function () {
+    return view('academic_archive_album_view');
+});
+
+Route::get('/academic_archive_album_view','academicArchiveController@album');
+
+Route::get('/arc/{id}','academicArchiveController@sessionToFile');
 
 Route::post('/remove_notification','NotificationController@remove');

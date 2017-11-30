@@ -58,17 +58,44 @@ label
   cursor: pointer;
 }
 
+.activity li
+{
+ /*text-shadow: 0 1px 0 rgba(255,255,255,.5);*/
+ background-color: #555;
+ line-height: 2;
+ margin:0px;
+ size:10px; 
+ width: 450px;
+ padding-left: 5px;
+ font-color: white;
+}
+
+.activity li:hover
+{
+  background-color: #666;
+}
+.activity a
+{
+  color: white;
+}
+/*
+.activity li:nth-of-type(odd) {
+  background: lightsteelblue;
+}*/
+
+
+
 </style>
 <div class="container">
   <div>
-             <h1>{{$user->name}}</h1>
+             <h1 style="color: #1ABC9C">{{$user->name}}</h1>
    <img src="/img/{{$user->avatar}}" id="img" style="width: 150px; height: 150px; margin-right: 25px;">
  </div>
    @if(Auth::user())
    @if($user->id==Auth::user()->id)
    <label id="change">Change Profile Image</label>
    <div id="form">
-   <form method="post" action="/profile" class="form" accept-charset="UTF-8" enctype="multipart/form-data" style="margin-top: 0">
+   <form method="post" action="/update-profile" class="form" accept-charset="UTF-8" enctype="multipart/form-data" style="margin-top: 0"> 
    <input type="file" id="file" name="avatar" style="margin-bottom: 5px">
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
    <input type="submit" class="btn btn-sm btn-primary">	
