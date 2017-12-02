@@ -112,7 +112,7 @@ img {
 </style>
 </head>
 <body onload="initDoc();">
-<form name="compForm" method="post" action="{{ action('QuestionSubmitController@submit') }}" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
+<form name="compForm" id="mainForm" method="post" action="{{ action('QuestionSubmitController@submit') }}" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;" enctype="multipart/form-data">
 <input type="hidden"  name="_token" value="{{ csrf_token() }}">
 @if($update==1)
 <input type="hidden" name="myDoc" value="{{$ques_content}}">
@@ -138,8 +138,11 @@ img {
 <img class="intLink" title="Dotted list" onclick="formatDoc('insertunorderedlist');" src={{ URL::asset ("img/dotted_list.png") }} />
 <img class="intLink" title="Hyperlink" onclick="var sLnk=prompt('Write the URL here','http:\/\/');if(sLnk&&sLnk!=''&&sLnk!='http://'){formatDoc('createlink',sLnk)}" src={{ URL::asset ("img/hyperlink.png") }} />
 
-<img class="intLink" title="image" onclick="var sLnk=prompt('Write image URL here','http:\/\/');if(sLnk&&sLnk!=''&&sLnk!='http://'){formatDoc('insertImage',sLnk)}" src={{ URL::asset ("img/picture.png") }} />
+<img class="intLink" title="upload image from web" onclick="var sLnk=prompt('Write image URL here','http:\/\/');if(sLnk&&sLnk!=''&&sLnk!='http://'){formatDoc('insertImage',sLnk)}" src={{ URL::asset ("img/picture.png") }} />
 
+<img class="intLink" title="upload image from PC" onclick="file_PC()" src={{ URL::asset ("img/picture.png") }} />
+
+<input type="file" id="my_file" style="display: none;" />
 
 </div>
 
@@ -182,6 +185,59 @@ img {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
    
    <script type="text/javascript">
+
+    function file_PC()
+    {
+    //  console.log("hello rana!");
+      $("input[id='my_file']").click();
+    }
+
+      $("#my_file").on('change',function(){
+        //do whatever you want
+        file_upload();
+       });
+
+
+    function file_upload()
+    {
+        
+      var fileInput = document.getElementById('my_file');
+      var ifile=fileInput.files[0];   
+      var filename = fileInput.files[0].name;
+      console.log(filename);
+
+    //  var form = document.forms.namedItem("compForm");
+      var form=$("#mainForm");
+      var formdata = new FormData(form);
+      console.log(formdata);
+
+      var file_data = $('#my_file').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+      
+  $.ajaxSetup({
+     headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   }
+   });
+
+   $.ajax({
+     type: "POST",
+     url: "/upload_file_PC", 
+                    contentType : false,
+                processData : false,
+    // data: 'file='+formdata,
+      data: form_data,
+     success: function($data)
+     {
+        // console.log($data.filePath);
+        // call();
+        formatDoc('insertImage',$data.filePath)
+     }
+   });
+
+    }
+
      $('#textBox').on({input: function(){
     var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
     $(this).css({'height':totalHeight});

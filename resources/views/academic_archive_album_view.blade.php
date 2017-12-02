@@ -108,6 +108,7 @@
 
       </div>
      @endforeach
+     <embed src="{{ URL::asset('pdf/test.pdf') }}" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
     </div>
   </div>
 </body>

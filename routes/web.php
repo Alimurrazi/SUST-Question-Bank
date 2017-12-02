@@ -133,3 +133,5 @@ Route::get('/academic_archive_album_view','academicArchiveController@album');
 Route::get('/arc/{id}','academicArchiveController@sessionToFile');
 
 Route::post('/remove_notification','NotificationController@remove');
+ 
+Route::post('/upload_file_PC','UploadController@upload');
