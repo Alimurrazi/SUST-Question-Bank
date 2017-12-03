@@ -20,7 +20,7 @@ body
 }
 
 #nav {
-  width: 40%;
+  width: 60%;
   height: 60px; 
   background: #1ABC9C;
 }
@@ -108,7 +108,8 @@ label
 <div id="nav">
   <ul>
        <li><a href="#asked">Asked Questions</a></li>
-  <li><a href="#answered">Answered Questions</a></li>    
+  <li><a href="#answered">Answered Questions</a></li>  
+  <li><a href="/academic_archive_file_view_current_user">Uploaded Exam question</a></li>  
   </ul>
 </div>
 

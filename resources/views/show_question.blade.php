@@ -90,6 +90,11 @@
 {
   margin-left:  5px;
 }
+img
+{
+  width: 50%;
+  height: 50%;
+}
 
 
 

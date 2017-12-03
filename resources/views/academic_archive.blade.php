@@ -20,7 +20,7 @@
    					<div class="container">
    						<h1 class="display-3">Add Quesion</h1>
 
-   						<form  enctype="multipart/form-data" id="upload" method="post"  action="{{action('academicArchiveController@store')}}" > 
+   						<form   id="upload" method="post"  action="{{action('academicArchiveController@store')}}" enctype="multipart/form-data" > 
    							{{ csrf_field() }}
 
 
@@ -28,19 +28,20 @@
    								<option disabled selected hidden value="">Select Subject</option>
    								<option value="C">C</option>
    								<option value="java">Java</option>
-   								<option value="S/w">S/W E</option>
+   								<option value="S-w">S/W E</option>
+                           <option value="subject">subject</option>
    							</select>
    							<br>
    							<select name="semester" class="form-control" required>
    								<option disabled selected hidden value="">Select Semester</option>
-   								<option value="1/1">1/1</option>
-   								<option value="1/2">1/2</option>
-   								<option value="2/1">2/1</option>
-   								<option value="2/2">2/2</option>
-   								<option value="3/1">3/1</option>
-   								<option value="3/2">3/2</option>
-   								<option value="4/1">4/1</option>
-   								<option value="4/2">4/2</option>
+   								<option value="1-1">1/1</option>
+   								<option value="1-2">1/2</option>
+   								<option value="2-1">2/1</option>
+   								<option value="2-2">2/2</option>
+   								<option value="3-1">3/1</option>
+   								<option value="3-2">3/2</option>
+   								<option value="4-1">4/1</option>
+   								<option value="4-2">4/2</option>
 
    							</select>  
    							<br>
@@ -92,7 +93,7 @@
    							<br>
 
    							<div class="form-group">
-   								<input required="" type="file" class="form-control-file" id="exampleFormControlFile1" multiple="jpg" name="image">
+   								<input required="" type="file" class="form-control-file" id="exampleFormControlFile1"  name="image[]" multiple>
    							</div>
 
    							<div>

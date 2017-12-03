@@ -3,12 +3,11 @@
    @section('content')
    
    <head>
-     <link rel="stylesheet" href="{{ URL::asset('own/lightbox/dist/css/lightbox.css')}}" />
-
+ <link rel="stylesheet" href="{{ URL::asset('own/lightbox/dist/css/lightbox.css')}}" />
    </head> 
 
    <body>
-    <div class="row">
+      <div class="row">
 
      <form  enctype="multipart/form-data" id="upload" method="post"  action="{{action('academicArchiveController@search')}}" > 
       {{ csrf_field() }}
@@ -71,29 +70,37 @@
  </form>
 
 </div>
-
-
-
-<div class="row" style="padding-top: 10px;">
-  @foreach($data as $data)
-  <div class="col-md-3 ">
-    <div class="thumbnail">
-
-      <a  href="/arc/{{$data->session}}"> <button style="width: 100%;height: 100%" type="button" class="btn">Session:{{$data->session}}</button>   </a>
-    </div>
-    
-
-
+ <div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <nav aria-label="...">
+  <ul class="pager">
+    <li style="font-size: 150%; opacity: .5" ><a href="/academic_archive_album_view">Archieve</a></li>
+    <li style="font-size: 150%; opacity: .5"><a href="/arc/{{$data[0]->session}}/">{{$data[0]->session}}</a></li>
+    <li style="font-size: 150%;"><a href="/arc/{{$data[0]->session}}/{{$data[0]->semester}}/">{{$data[0]->semester}}</a></li>
+  </ul>
+</nav>
   </div>
-  @endforeach
+</div>
+
+
+    <div class="row" style="padding-top: 100px;">
+    @foreach($data as $data)
+      <div class="col-md-3 ">
+        <div class="thumbnail">
+
+          <a  href="/arc/{{$data->session}}/{{$data->semester}}/{{$data->subject}}"> <button style="width: 100%;height: 100%" type="button" class="btn">Subject: {{$data->subject}}</button>   </a>
+        </div>
+      </div>
+     @endforeach
 <!--
     <a href="www.example.com/example.html" target="_blank">link text</a>
     <iframe>  <embed src="{{ URL::asset('pdf/test.pdf') }}" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
 </iframe>
 -->
 <!--a href="{{ URL::asset('pdf/test.pdf') }}" target="_blank">Read more</a-->
-</div>
-</div>
+        </div>
+  </div>
 </body>
-<script src="own/lightbox/dist/js/lightbox.js"></script>
+  <script src="own/lightbox/dist/js/lightbox.js"></script>
 @endsection

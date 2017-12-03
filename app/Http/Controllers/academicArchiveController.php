@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use View;
 use Auth;
 use DB;
+use Redirect;
 class academicArchiveController extends Controller
 {
 /**
@@ -35,32 +36,64 @@ public function create()
  * @return \Illuminate\Http\Response
  */
 
-public function sessionToFile($id){
-   $data=DB::table('academic_archive')
- ->join('academic_archive_file','academic_archive.id','=','academic_archive_file.foreign_id')
- ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester')
+public function sessionToSemester($id){
+ $data=DB::table('academic_archive')
+ ->select('session','semester')
+ ->distinct('semester')
  ->where('session','=',$id)
- ->get();
 
- return view::make('academic_archive_file_view')->with('data',$data); 
+ ->get();
+ 
+ return view::make('academic_archive_semester_view')->with('data',$data); 
+}
+
+
+public function semesterToSubject( $session, $semester ){
+
+
+$data=DB::table('academic_archive')
+  
+  ->select('subject','session','semester')
+  ->where('session' ,'=', $session)
+    ->where('semester' ,'=', $semester)
+    ->distinct('subject')
+  ->get();
+  return view::make('academic_archive_subject_view')->with('data',$data);
+
+}
+
+public function subjectToFile($session, $semester , $subject){
+ 
+$check=1; 
+$data=DB::table('academic_archive')
+  ->join('academic_archive_file','academic_archive.id','=','academic_archive_file.foreign_id')
+  ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester','academic_archive.type','academic_archive.teacher','academic_archive.user_id','academic_archive_file.id')
+  ->where('academic_archive.session' ,'=', $session)
+    ->where('academic_archive.semester' ,'=', $semester)
+    ->where('academic_archive.subject' ,'=', $subject)
+  ->get();
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check);
+
 }
 
 public function store(Request $request)
 {
 
-    $id=200;
-    $chk=DB::table('academic_archive')
-    ->where('subject' ,'=',Input::get('subject'))
-    ->where('semester' ,'=',Input::get('semester'))
-    ->where('session' ,'=',Input::get('session'))
-    ->get();
-    
+  $chk=DB::table('academic_archive')
+  ->where('subject' ,'=',Input::get('subject'))
+  ->where('semester' ,'=',Input::get('semester'))
+  ->where('session' ,'=',Input::get('session'))
+  ->where('user_id' ,'=',Auth::user()->id)
+  ->get();
 
-    if (count($chk)>0){
 
-      if (Input::hasFile('image')) {
-        $image = Input::file('image');
-       // $path=$image->move(public_path().'/'.'img'.'/'.'question'.'/',$image->getClientOriginalName());
+  if (count($chk)>0){
+
+    if (Input::hasFile('image')) {
+      $image = Input::file('image');
+
+      foreach ($image as $image) {
+
         $image->move(public_path().'/'.'img'.'/'.'question'.'/',$image->getClientOriginalName());
 
         $path='/'.'img'.'/'.'question'.'/'.$image->getClientOriginalName();
@@ -73,54 +106,58 @@ public function store(Request $request)
         ->where('file','=',$path)
         ->get(); 
 
-          if( count($exist)>0){
-            return view::make('academic_archive');
-          }
-          else{
-           DB::table('academic_archive_file')->insert([
-             'foreign_id'=>$id,
-             'file'=>$path]);
-         }
-
+        if( count($exist)>0){
+          return view::make('academic_archive');
+        }
+        else{
+         DB::table('academic_archive_file')->insert([
+           'foreign_id'=>$id,
+           'file'=>$path]);
        }
-     // echo "if loop";
-       return view::make('academic_archive');
      }
+   }
+     // echo "if loop";
+   return view::make('academic_archive');
+ }
 
-     else{   DB::table('academic_archive')->insert([
-      'user_id'=>Auth::user()->id,
-      'subject'=>Input::get('subject'),
-      'semester'=>Input::get('semester'),
-      'session'=>Input::get('session'),
-      'teacher'=>Input::get('teacher'),
-      'type'=>Input::get('type')]);
+ else{   DB::table('academic_archive')->insert([
+  'user_id'=>Auth::user()->id,
+  'subject'=>Input::get('subject'),
+  'semester'=>Input::get('semester'),
+  'session'=>Input::get('session'),
+  'teacher'=>Input::get('teacher'),
+  'type'=>Input::get('type')]);
 
 
 
 
-      if (Input::hasFile('image')) {
-        $image = Input::file('image');
-       // $path=$image->move(public_path().'/'.'img'.'/'.'question'.'/',$image->getClientOriginalName());
-        $image->move(public_path().'/'.'img'.'/'.'question'.'/',$image->getClientOriginalName());
+  if (Input::hasFile('image')) {
+    $image = Input::file('image');
+    
+    foreach ($image as $image) {
 
-        $path='/'.'img'.'/'.'question'.'/'.$image->getClientOriginalName();
+
+      $image->move(public_path().'/'.'img'.'/'.'question'.'/',$image->getClientOriginalName());
+
+      $path='/'.'img'.'/'.'question'.'/'.$image->getClientOriginalName();
    // echo $path;
-        $latest_id=DB::table('academic_archive')->max('id');
+      $latest_id=DB::table('academic_archive')->max('id');
         //$latest_id++;
         //echo $latest_id;
 
-        DB::table('academic_archive_file')->insert([
-         'foreign_id'=>$latest_id,
-         'file'=>$path]);
-      }
-  // echo "else loop";
-      return view::make('academic_archive');
-
+      DB::table('academic_archive_file')->insert([
+       'foreign_id'=>$latest_id,
+       'file'=>$path]);
     }
+  }
+  // echo "else loop";
+  return view::make('academic_archive');
+
+}
 
 
    // return view::make('academic_archive');
-  }
+}
 
 /**
  * Display the specified resource.
@@ -130,17 +167,18 @@ public function store(Request $request)
  */
 public function show()
 {
+  $check=0;
   $data=DB::table('academic_archive')
   ->join('academic_archive_file','academic_archive.id','=','academic_archive_file.foreign_id')
-  ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester')
+  ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester','academic_archive.type','academic_archive.teacher','academic_archive.user_id','academic_archive_file.id')
   ->get();
-  return view::make('academic_archive_file_view')->with('data',$data);      
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check);      
 }
 
 
 public function search(Request $request)
 {
-
+$check=0;
   $data=DB::table('academic_archive')
   ->join('academic_archive_file','academic_archive.id','=','academic_archive_file.foreign_id')
   ->where('academic_archive.subject','=',Input::get('subject'))
@@ -149,7 +187,7 @@ public function search(Request $request)
   ->get();
 
 
-  return view::make('academic_archive_file_view')->with('data',$data);      
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check);      
 }
 
 public function album(Request $request)
@@ -206,8 +244,30 @@ public function update(Request $request, $id)
  * @param  int  $id
  * @return \Illuminate\Http\Response
  */
-public function destroy($id)
+public function remove($id)
 {
-    //
+   $foreign_id=DB::table('academic_archive_file')
+               ->where('id','=',$id)
+               ->value('foreign_id');
+
+    DB::table('academic_archive_file')
+    ->where('id',$id)
+    ->delete();
+  
+  $data=DB::table('academic_archive_file')
+        ->where('foreign_id','=',$foreign_id)
+        ->first();
+
+  if($data)      
+  {
+
+  }
+  else
+  {
+    DB::table('academic_archive')
+    ->where('id',$foreign_id)
+    ->delete();
+  }
+  return Redirect::back();
 }
 }

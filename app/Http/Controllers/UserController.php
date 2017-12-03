@@ -12,6 +12,21 @@ use File;
 
 class UserController extends Controller
 {
+
+  public function archieveForCurrentUser()
+{
+$check=0;
+  $data=DB::table('academic_archive')
+  ->join('academic_archive_file','academic_archive.id','=','academic_archive_file.foreign_id')
+  ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester','academic_archive.type','academic_archive.teacher','academic_archive.user_id','academic_archive_file.id')
+   ->where('academic_archive.user_id', '=', Auth::user()->id)
+  ->get();
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check); 
+
+
+
+      
+}
     public function profile($id)
     {
       $user=DB::table('users')

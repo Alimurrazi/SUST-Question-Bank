@@ -113,6 +113,10 @@ img {
 </head>
 <body onload="initDoc();">
 <form name="compForm" id="mainForm" method="post" action="{{ action('QuestionSubmitController@submit') }}" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;" enctype="multipart/form-data">
+
+<input type="radio" name="privacy" value="public" checked> Public<br>
+<input type="radio" name="privacy" value="private"> Private<br>
+
 <input type="hidden"  name="_token" value="{{ csrf_token() }}">
 @if($update==1)
 <input type="hidden" name="myDoc" value="{{$ques_content}}">
@@ -124,7 +128,7 @@ img {
 <div id="toolBar2">
 <label>Title</label>  
 <br>
-<input type="text" name="title" id="title" placeholder="  Title">
+<input type="text" name="title" id="title" placeholder=" Title">
 <br>
   
 <img class="intLink" title="Bold" onclick="formatDoc('bold');" src={{ URL::asset("img/bold.png") }} />

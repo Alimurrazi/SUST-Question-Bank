@@ -130,8 +130,25 @@ Route::get('/academic_archive_album_view', function () {
 
 Route::get('/academic_archive_album_view','academicArchiveController@album');
 
-Route::get('/arc/{id}','academicArchiveController@sessionToFile');
+Route::get('/arc/{id}','academicArchiveController@sessionToSemester');
 
 Route::post('/remove_notification','NotificationController@remove');
  
 Route::post('/upload_file_PC','UploadController@upload');
+
+Route::get('/academic_archive_semester_view', function () {
+    return view('academic_archive_semester_view');
+});
+
+Route::get('/arc/{session}/{semester} ','academicArchiveController@semesterToSubject');
+
+Route::get('/academic_archive_subject_view', function () {
+    return view('academic_archive_subject_view');
+});
+
+Route::get('/arc/{session}/{semester}/{subject} ','academicArchiveController@subjectToFile');
+
+
+Route::get('/academic_archive_file_view_current_user','UserController@archieveForCurrentUser'); 
+
+Route::get('/remove/{file_id}','academicArchiveController@remove');
