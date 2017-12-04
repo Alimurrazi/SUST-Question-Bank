@@ -15,7 +15,7 @@ class QuestionSubmitController extends Controller
     public function submit(Request $request)
     {
       
-    //  return Input::all();
+    // return Input::all();
 
        $data=DB::table('questions')
              ->where('user_id','=',Auth::user()->id)
@@ -27,12 +27,18 @@ class QuestionSubmitController extends Controller
        $title=Input::get('title');
        $content=Input::get('myDoc');
        $content=htmlspecialchars($content);
+       
+       if(Input::get('privacy')=='public')
+        $privacy_status=0;
+        else
+        $privacy_status=1;
 
        $question=new question;
        $question->user_id=Auth::user()->id;
        $question->title=$title;
        $question->content=$content;
        $question->date=time();
+       $question->privacy_status=$privacy_status;
        $question->save();
        
         foreach ($request->tag_id as $tag_id)

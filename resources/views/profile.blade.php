@@ -13,14 +13,14 @@ body
   height: auto;
 }
 
-#asked,#answered
+#asked,#answered,#private
 {
   margin-top:    20px;
   margin-bottom: 20px;
 }
 
 #nav {
-  width: 60%;
+  width: 70%;
   height: 60px; 
   background: #1ABC9C;
 }
@@ -107,9 +107,14 @@ label
 
 <div id="nav">
   <ul>
-       <li><a href="#asked">Asked Questions</a></li>
+  <li><a href="#asked">Asked Questions</a></li>
   <li><a href="#answered">Answered Questions</a></li>  
-  <li><a href="/academic_archive_file_view_current_user">Uploaded Exam question</a></li>  
+  <li><a href="/academic_archive_file_view_current_user">Uploaded Exam question</a></li>
+  @if(Auth::user())
+  @if($user->id==Auth::user()->id)
+  <li><a href="#private">Private Questions</a></li>
+  @endif
+  @endif  
   </ul>
 </div>
 
@@ -129,15 +134,22 @@ label
  </li>
   @endforeach
 </div>
+
 <div id="answered" class="activity" style="display: none;">
-    @foreach($answered as $answered)
+  @foreach($answered as $answered)
   <li>
    <a href="/show_question/{{$answered->id}}">{{$answered->title}}</a>
  </li>
   @endforeach
 </div>
 
-    </div>
+ <div id="private" class="activity" style="display: none;">
+  @foreach($private as $private)
+  <li>
+   <a href="/show_question/{{$private->id}}">{{$private->title}}</a>
+ </li>
+  @endforeach
+  </div>
 
 <script type="text/javascript">
   function readURL(input) {

@@ -78,7 +78,7 @@
                   @foreach($newtag as $ntag) 
                   <span class="tag">{{$ntag["tag_name"]}}</span>
                   @endforeach
-
+ 
                   </div>
                   <br>
                   <div id="dateAnswer">

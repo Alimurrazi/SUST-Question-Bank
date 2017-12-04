@@ -152,3 +152,12 @@ Route::get('/arc/{session}/{semester}/{subject} ','academicArchiveController@sub
 Route::get('/academic_archive_file_view_current_user','UserController@archieveForCurrentUser'); 
 
 Route::get('/remove/{file_id}','academicArchiveController@remove');
+
+Route::post('/change_privacy/{ques_id}','QuestionEditController@privacy');
+
+Route::get('/admin_page','adminController@index');
+
+Route::get('/admin_user_update/{id}','adminController@user_update_first');
+Route::post('/admin_user_update_second','adminController@user_update_second');
+
+Route::get('/admin_user_delete','adminController@user_delete');

@@ -38,6 +38,12 @@
   float: right;
   margin: 5px 0;
 }
+.privacy-span
+{
+  width: 60px;
+  float: right;
+  margin: 5px 0;
+}
 .update-span-cnt
 {
   float: right;
@@ -136,7 +142,29 @@ img
         <div class="vote" data-action="down" title="Vote down" id="down">
           <i class="fa fa-chevron-down"></i>
         </div><!--vote down-->
+        
+        @if($question[0]->privacy_status==1)
+        <div class="privacy" title="Private" id="private">
+          <i class="fa fa-lock"></i>
+        </div>
+        <!--
+        <div class="privacy" title="Public" id="public" style="display: none;">
+          <i class="fa fa-unlock"></i>
+        </div>  -->
+
+        @else
+        <div class="privacy" title="Public" id="public">
+          <i class="fa fa-unlock"></i>
+        </div>
+        <!--
+          <div class="privacy" title="Private" id="private" style="display: none;">
+          <i class="fa fa-lock"></i>
+        </div>  -->
+
+        @endif
+
       </div>
+
 
       @if(Auth::user())
       @if(Auth::user()->id==$question[0]->user_id)
@@ -295,6 +323,31 @@ $.ajaxSetup({
   }
 });
 
+$('.privacy').click(function(){
+   var questionId=$('#ques_id').val();
+   var title=$(this).attr('title');
+  // $("#private").hide();
+  // $("#public").show();
+   $.ajax({
+        type: "POST",
+        data: 'title='+title,
+        url: "/change_privacy/"+questionId,
+        success: function()
+        {
+           if(title=="Private")
+           {
+             $('.privacy').html('<i class="fa fa-unlock"></i>');
+             $('.privacy').attr('title','Public');
+           }
+           else
+           {
+             $('.privacy').html('<i class="fa fa-lock"></i>');
+             $('.privacy').attr('title','Private');
+           }
+        }
+   });
+});
+
 $('.right_ans').click(function(){
    answerId=$(this).parent().find('.answerId').val();
    console.log(answerId);
@@ -308,6 +361,8 @@ $('.right_ans').click(function(){
        }
    });
 });
+
+$('.')
 
         $('.edit-cnt').click(function(event){
         //console.log($(this).parent().parent().find('p').text());    

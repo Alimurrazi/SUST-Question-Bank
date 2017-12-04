@@ -26,6 +26,7 @@ class HomeController extends Controller
     {
         $ques_list=DB::table('questions')
                    ->orderBy('created_at', 'desc')
+                   ->where('privacy_status','=',0)
                    ->paginate(5);
                    //->get();
          

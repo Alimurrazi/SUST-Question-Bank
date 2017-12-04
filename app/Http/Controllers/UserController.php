@@ -35,6 +35,7 @@ $check=0;
 
       $asked=DB::table('questions')
              ->where('user_id','=',$id)
+             ->where('privacy_status','=',0)
              ->get();
 
       $answered=DB::table('questions')
@@ -43,8 +44,16 @@ $check=0;
                 ->select('questions.id','questions.title')
                 ->distinct()
                 ->get();
+
+      $private=DB::table('questions')
+               ->where('user_id','=',$id)
+               ->where('privacy_status','=',1)
+               ->get();
+
+    //  echo $asked;
+    //  echo $private;        
  
-    return view::make('profile')->with('user',$user)->with('asked',$asked)->with('answered',$answered);
+    return view::make('profile')->with('user',$user)->with('asked',$asked)->with('answered',$answered)->with('private',$private);
     }
 
     public function update(Request $request)

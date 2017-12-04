@@ -109,13 +109,22 @@ img {
   max-width:250px;
   max-height:250px;
 }
+.ques_status
+{
+  float: right;
+}
 </style>
 </head>
 <body onload="initDoc();">
 <form name="compForm" id="mainForm" method="post" action="{{ action('QuestionSubmitController@submit') }}" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;" enctype="multipart/form-data">
-
-<input type="radio" name="privacy" value="public" checked> Public<br>
-<input type="radio" name="privacy" value="private"> Private<br>
+@if(Auth::user()->status==1)
+<div class="ques_status">
+  <label>Who can see the question</label>
+  <br>
+<input type="radio" name="privacy" value="public" checked> ALL<br>
+<input type="radio" name="privacy" value="private"> Only Me<br>
+</div>
+@endif
 
 <input type="hidden"  name="_token" value="{{ csrf_token() }}">
 @if($update==1)
