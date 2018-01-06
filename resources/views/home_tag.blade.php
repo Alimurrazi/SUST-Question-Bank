@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
 <style type="text/css">
@@ -63,13 +63,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-          <span class="sort"><a href="/home">Latest Question</a></span>
-          <span class="sort"><a href="/home/vote">Most Voted Question</a></span>
-          @if(Auth::user())
-          @if(Auth::user()->status==1)
-          <span class="sort"><a href="/home/teacher">Teacher's Question</a></span>
-          @endif
-          @endif 
+          <span class="sort"><a href="/home_tag/{{$tag_id}}">Latest Question</a></span>
+         <span class="sort"><a href="/home_tag/vote/{{$tag_id}}">Most Voted Question</a></span>
+
+@if(Auth::user())
+@if(Auth::user()->status==1)
+          <span class="sort"><a href="/home_tag/teacher/{{$tag_id}}">Teacher's Question</a></span> 
+@endif
+@endif          
+
             <div class="panel panel-default">
                 <div class="panel-heading"><h1>{{$title}}</h1></div>
                 <div class="panel-body">

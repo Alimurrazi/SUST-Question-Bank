@@ -38,11 +38,12 @@
   float: right;
   margin: 5px 0;
 }
-.privacy-span
+.privacy
 {
-  width: 60px;
+  width: 38px;
   float: right;
   margin: 5px 0;
+  margin-top: 20px;
 }
 .update-span-cnt
 {
@@ -132,8 +133,15 @@ img
 
 
     <input type="hidden" id="vote" value="{{$vote}}">
-  
-    <div class="wrap">  
+
+<div title="{{$submitter->name}}">
+<a href="/profile/{{$submitter->id}}">    
+<img src="{{URL::asset('/img/')}}{{'/'.$submitter->avatar}}" style="width: 55px;height: 55px;border-radius: 50%;margin-bottom: 5px;">   
+</a>
+</div>
+
+    <div class="wrap">
+   
      <div class="vote-span"><!-- voting-->
         <div class="vote" data-action="up" title="Vote up" id="up">
           <i class="fa fa-chevron-up"></i>
@@ -143,24 +151,31 @@ img
           <i class="fa fa-chevron-down"></i>
         </div><!--vote down-->
         
-        @if($question[0]->privacy_status==1)
+        @if(Auth::user())
+        @if(Auth::user()->id==$question[0]->user_id)
+        @if($submitter->status==1)
         <div class="privacy" title="Private" id="private">
-          <i class="fa fa-lock"></i>
+          <i class="fa fa-lock fa-2x"></i>
         </div>
         <!--
         <div class="privacy" title="Public" id="public" style="display: none;">
           <i class="fa fa-unlock"></i>
         </div>  -->
 
-        @else
+        @elseif($question[0]->privacy_status==0)
         <div class="privacy" title="Public" id="public">
-          <i class="fa fa-unlock"></i>
+          <i class="fa fa-unlock fa-2x"></i>
         </div>
         <!--
           <div class="privacy" title="Private" id="private" style="display: none;">
           <i class="fa fa-lock"></i>
         </div>  -->
-
+        @else
+        <div class="privacy" title="Teachers Only" id="teachers_only">
+          <i class="fa fa-unlock-alt fa-2x"></i>
+        </div>
+        @endif
+        @endif
         @endif
 
       </div>
@@ -336,13 +351,19 @@ $('.privacy').click(function(){
         {
            if(title=="Private")
            {
-             $('.privacy').html('<i class="fa fa-unlock"></i>');
+             $('.privacy').html('<i class="fa fa-unlock-alt fa-2x"></i>');
+            // $('.privacy').attr('title','Public');
+             $('.privacy').attr('title','Teachers Only'); 
+           }
+           else if(title=="Teachers Only")
+           {
+             $('.privacy').html('<i class="fa fa-unlock fa-2x"></i>');
              $('.privacy').attr('title','Public');
            }
            else
            {
-             $('.privacy').html('<i class="fa fa-lock"></i>');
-             $('.privacy').attr('title','Private');
+              $('.privacy').html('<i class="fa fa-lock fa-2x"></i>');
+              $('.privacy').attr('title','Private');
            }
         }
    });

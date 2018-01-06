@@ -14,9 +14,18 @@ class academicArchiveController extends Controller
  *
  * @return \Illuminate\Http\Response
  */
+
+public function subject()
+{
+
+}
+
 public function index()
 {
-    //
+    $subject=DB::table('subject')
+             ->get();
+
+    return view::make('academic_archive')->with('subject',$subject);
 }
 
 /**
@@ -43,8 +52,12 @@ public function sessionToSemester($id){
  ->where('session','=',$id)
 
  ->get();
+
+     $subject=DB::table('subject')
+             ->get();
+
  
- return view::make('academic_archive_semester_view')->with('data',$data); 
+ return view::make('academic_archive_semester_view')->with('data',$data)->with('subject',$subject); 
 }
 
 
@@ -58,7 +71,12 @@ $data=DB::table('academic_archive')
     ->where('semester' ,'=', $semester)
     ->distinct('subject')
   ->get();
-  return view::make('academic_archive_subject_view')->with('data',$data);
+
+    $subject=DB::table('subject')
+             ->get();
+
+
+  return view::make('academic_archive_subject_view')->with('data',$data)->with('subject',$subject);
 
 }
 
@@ -72,12 +90,21 @@ $data=DB::table('academic_archive')
     ->where('academic_archive.semester' ,'=', $semester)
     ->where('academic_archive.subject' ,'=', $subject)
   ->get();
-  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check);
+
+    $subject=DB::table('subject')
+             ->get();
+
+
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check)->with('subject',$subject);
 
 }
 
 public function store(Request $request)
 {
+
+      $subject=DB::table('subject')
+             ->get();
+
 
   $chk=DB::table('academic_archive')
   ->where('subject' ,'=',Input::get('subject'))
@@ -117,7 +144,7 @@ public function store(Request $request)
      }
    }
      // echo "if loop";
-   return view::make('academic_archive');
+   return view::make('academic_archive')->with('subject',$subject);
  }
 
  else{   DB::table('academic_archive')->insert([
@@ -151,7 +178,7 @@ public function store(Request $request)
     }
   }
   // echo "else loop";
-  return view::make('academic_archive');
+  return view::make('academic_archive')->with('subject',$subject);
 
 }
 
@@ -167,12 +194,17 @@ public function store(Request $request)
  */
 public function show()
 {
+
+    $subject=DB::table('subject')
+             ->get();
+
+
   $check=0;
   $data=DB::table('academic_archive')
   ->join('academic_archive_file','academic_archive.id','=','academic_archive_file.foreign_id')
   ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester','academic_archive.type','academic_archive.teacher','academic_archive.user_id','academic_archive_file.id')
   ->get();
-  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check);      
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check)->with('subject',$subject);      
 }
 
 
@@ -186,8 +218,11 @@ $check=0;
   ->where('academic_archive.session','=',Input::get('session'))
   ->get();
 
+    $subject=DB::table('subject')
+             ->get();
 
-  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check);      
+
+  return view::make('academic_archive_file_view')->with('data',$data)->with('check',$check)->with('subject',$subject);      
 }
 
 public function album(Request $request)
@@ -198,10 +233,13 @@ public function album(Request $request)
  ->select('session')
  ->distinct()
  ->orderBy('session','desc')
-
  ->get();
 
- return view::make('academic_archive_album_view')->with('data',$data);      
+   $subject=DB::table('subject')
+            ->get();
+
+
+ return view::make('academic_archive_album_view')->with('data',$data)->with('subject',$subject);      
 }
 
 public function albumFullQuery (Request $request)
@@ -212,7 +250,11 @@ public function albumFullQuery (Request $request)
  ->select('academic_archive_file.file as file','academic_archive.subject as subject','academic_archive.session as session','academic_archive.semester as semester')
  ->get();
 
- return view::make('academic_archive_album_view')->with('data',$data);      
+     $subject=DB::table('subject')
+             ->get();
+
+
+ return view::make('academic_archive_album_view')->with('data',$data)->with('subject',$subject);      
 }
 
 /**

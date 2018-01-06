@@ -30,8 +30,10 @@ class QuestionSubmitController extends Controller
        
        if(Input::get('privacy')=='public')
         $privacy_status=0;
-        else
+        else if(Input::get('privacy')=='private')
         $privacy_status=1;
+        else
+        $privacy_status=2;
 
        $question=new question;
        $question->user_id=Auth::user()->id;
@@ -87,12 +89,18 @@ class QuestionSubmitController extends Controller
 */
          $question=DB::table('questions')
                    ->where('id','=',$id)
+                  // ->join('users','questions.user_id','=','users.id')
+                  // ->select('questions.id','questions.user_id','questions.content','questions.upvote','questions.downvote','questions.created_at','questions.title','questions.privacy_status','users.id')
                    ->get();
+
+          $question_submitter=DB::table('users')
+                              ->where('id','=',$question[0]->user_id)
+                              ->first();         
 
          $tag=DB::table('tag_relations')
               ->join('tags','tag_relations.tag_id','=','tags.id')
                   ->where('question_id','=',$id)
-                  ->get();
+                  ->get(); 
 
          $answer=DB::table('answers')
                  ->join('users','answers.user_id','=','users.id')
@@ -119,7 +127,7 @@ else if($vote->downvote==1)
 }
 
  
-  return view::make('show_question')->with('question',$question)->with('tag',$tag)->with('answer',$answer)->with('vote',$vote_status);
+  return view::make('show_question')->with('question',$question)->with('tag',$tag)->with('answer',$answer)->with('vote',$vote_status)->with('submitter',$question_submitter);
 
      }
 }

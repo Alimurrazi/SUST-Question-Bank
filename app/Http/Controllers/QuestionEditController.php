@@ -21,18 +21,25 @@ class QuestionEditController extends Controller
     public function privacy($id,Request $request)
     {
     	//echo $id;
-    	//echo $request->title;
+    	//echo $request->title; 
     	if($request->title=="Private")
     	{
         $question=question::find($id);
-        $question->privacy_status=0;
+        $question->privacy_status=2;
         $question->save();
     	}
+        elseif($request->title=="Teachers Only")
+        {
+        $question=question::find($id);
+        $question->privacy_status=0;
+        $question->save();
+        }
     	else
     	{
         $question=question::find($id);
         $question->privacy_status=1;
         $question->save();
     	}
+
     }
 }

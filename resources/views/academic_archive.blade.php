@@ -23,13 +23,12 @@
    						<form   id="upload" method="post"  action="{{action('academicArchiveController@store')}}" enctype="multipart/form-data" > 
    							{{ csrf_field() }}
 
-
+ 
    							<select name="subject" class="form-control" required>
    								<option disabled selected hidden value="">Select Subject</option>
-   								<option value="C">C</option>
-   								<option value="java">Java</option>
-   								<option value="S-w">S/W E</option>
-                           <option value="subject">subject</option>
+                           @foreach($subject as $subject)
+         <option value="{{$subject->subject_name}}">{{$subject->subject_name." - ".$subject->subject_code }}</option>
+                           @endforeach
    							</select>
    							<br>
    							<select name="semester" class="form-control" required>

@@ -119,10 +119,11 @@ img {
 <form name="compForm" id="mainForm" method="post" action="{{ action('QuestionSubmitController@submit') }}" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;" enctype="multipart/form-data">
 @if(Auth::user()->status==1)
 <div class="ques_status">
-  <label>Who can see the question</label>
+  <label>Who can see the question</label> 
   <br>
 <input type="radio" name="privacy" value="public" checked> ALL<br>
 <input type="radio" name="privacy" value="private"> Only Me<br>
+<input type="radio" name="privacy" value="teachers_only"> Teachers Only<br>
 </div>
 @endif
 

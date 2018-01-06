@@ -95,29 +95,14 @@
 <body>
   <div class="form-style-6">
 <h1>Update Information</h1>
-<form method="post" action="{{ action('adminController@user_update_second') }}">
+<form method="post" action="{{ action('adminController@subject_update_second') }}">
 <input type="hidden"  name="_token" value="{{ csrf_token() }}">
 <input type="hidden"  name="subject_id" value="{{$data->id}}">
-<input type="text" name="name" placeholder="Name" value="{{$data->name}}">
-<input type="email" name="email" placeholder="Email Address" value="{{$data->email}}" >
-<label for="Status">Status:</label>
-<select id="status" name="status" @if($data->status==0) value="normal" @else value="teacher" @endif >
-<optgroup label="status">
-  <option value="normal">Normal</option>
-  <option value="teacher">Teacher</option>
-</optgroup>
-</select>
+<input type="text" name="subject_name" placeholder="Subject Name" value="{{$data->subject_name}}">
+<input type="number" name="subject_code" placeholder="Subject Code" value="{{$data->subject_code}}" >
 <br>
-{{--
-@if($data->status==0)
-<input type="checkbox" name="admin" value="admin">Make him an Admin
-@else
-<input type="checkbox" name="admin" value="admin" checked>Make him an Admin
-@endif
-<br>
---}}
 
-<input type="submit" value="Submit" />
+<input type="submit" value="Submit" style="margin-top: 20px">
 </form>
 
 </div>

@@ -87,10 +87,21 @@ label
 
 </style>
 <div class="container">
-  <div>
+  <div style="width: 20%">
              <h1 style="color: #1ABC9C">{{$user->name}}</h1>
    <img src="/img/{{$user->avatar}}" id="img" style="width: 150px; height: 150px; margin-right: 25px;">
+      @if(Auth::user())
+   @if(Auth::user()->status==1)
+    <span title="Teacher">
+      <i class="fa fa-graduation-cap" style="float: right; font-size:24px;color: green"></i>
+    </span>
+     
+   @endif
+   @endif
  </div>
+ 
+
+
    @if(Auth::user())
    @if($user->id==Auth::user()->id)
    <label id="change">Change Profile Image</label>
@@ -111,7 +122,7 @@ label
   <li><a href="#answered">Answered Questions</a></li>  
   <li><a href="/academic_archive_file_view_current_user">Uploaded Exam question</a></li>
   @if(Auth::user())
-  @if($user->id==Auth::user()->id)
+  @if($user->id==Auth::user()->id && Auth::user()->status==1)
   <li><a href="#private">Private Questions</a></li>
   @endif
   @endif  

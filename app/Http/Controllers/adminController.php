@@ -30,6 +30,8 @@ class adminController extends Controller
     public function user()
     {
         $user=DB::table('users')
+            //  ->join('admins','users_id','=','admins.id')
+            //  ->select()
               ->get();
 
          return view::make('admin_edit_user_data')->with('user',$user);
@@ -48,6 +50,7 @@ class adminController extends Controller
     {
         echo $request;
         
+        
         $user=User::find($request->user_id);
         $user->name=$request->name;
         $user->email=$request->email;
@@ -56,16 +59,61 @@ class adminController extends Controller
         else
         $user->status=1;
 
-/*
-        if($request->admin=="admin")
+
+        //if($request->admin=="admin")
         $user->save();
-*/        
+        
         return redirect('/admin_page');
+
     }
 
     public function user_delete($id)
     {
          
     }
-    
+
+    public function subject()
+    {
+        $subject=DB::table('subject')
+                 ->get();
+
+        return view::make('admin_subject')->with('subject',$subject);
+    }
+
+    public function subject_update_first($id)
+    {
+      $data=DB::table('subject')
+            ->where('id','=',$id)
+            ->first(); 
+ 
+      return view::make('admin_update_subject_data')->with('data',$data);      
+    }
+
+    public function subject_update_second(Request $request)
+    {
+            DB::table('subject')
+            ->where('id', $request->subject_id)
+            ->update(['subject_name' => $request->subject_name,'subject_code'=>$request->subject_code]);
+
+            return back();
+    }
+
+    public function add_subject(Request $request)
+    {
+        DB::table('subject')->insert(
+        ['subject_name' => $request->subject_name, 'subject_code' => $request->subject_code]
+        );
+        
+        return redirect('/admin_page_subject');
+    }
+
+    public function subject_delete($id)
+    {
+        DB::table('subject')
+        ->where('id','=',$id)
+        ->delete();
+
+        return back();
+    }
+
 }

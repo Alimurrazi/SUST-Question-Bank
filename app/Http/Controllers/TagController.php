@@ -32,14 +32,16 @@ class TagController extends Controller
 
     public function specific($id)
     {
+        
+        $title="Latest Question";
+
     	        $ques_list=DB::table('questions')
+                           ->where('privacy_status','=',0)
                            ->join('tag_relations','tag_relations.question_id','=','questions.id')
                            ->where('tag_relations.tag_id','=',$id)
                            ->select('questions.id','questions.title','questions.content','questions.created_at','tag_relations.tag_id')
                            ->orderBy('created_at', 'desc')
                            ->paginate(5);
-        
-    //    return $ques_list;
 
         $total_answer=[];
         $tag=[];
@@ -50,15 +52,73 @@ class TagController extends Controller
                             ->where('ques_id','=',$question->id)
                             ->count();
              
-
-
              $tag[$question->id]=DB::table('tag_relations')
                                  ->where('tag_relations.question_id','=',$question->id)
                                  ->join('tags','tags.id','=','tag_relations.tag_id')
                                  ->select('tags.tag_name')
                                  ->get();
         }
-       return view('home')->with('list',$ques_list)->with('total_answer',$total_answer)->with('ques_tag',$tag);
+       return view('home_tag')->with('list',$ques_list)->with('total_answer',$total_answer)->with('ques_tag',$tag)->with('title',$title)->with('tag_id',$id);
+
+    }
+
+    public function specific_vote($id)
+    {
+          $title="Top Voted Question";
+              $ques_list=DB::table('questions')
+                           ->where('privacy_status','=',0)
+                           ->join('tag_relations','tag_relations.question_id','=','questions.id')
+                           ->where('tag_relations.tag_id','=',$id)
+                           ->select('questions.id','questions.title','questions.content','questions.created_at','tag_relations.tag_id')
+                           ->orderBy('upvote', 'desc')
+                           ->paginate(5); 
+
+        $total_answer=[];
+        $tag=[];
+
+        foreach ($ques_list as $question)
+        {
+             $total_answer[]=DB::table('answers')
+                            ->where('ques_id','=',$question->id)
+                            ->count();
+             
+             $tag[$question->id]=DB::table('tag_relations')
+                                 ->where('tag_relations.question_id','=',$question->id)
+                                 ->join('tags','tags.id','=','tag_relations.tag_id')
+                                 ->select('tags.tag_name')
+                                 ->get();
+        }
+       return view('home_tag')->with('list',$ques_list)->with('total_answer',$total_answer)->with('ques_tag',$tag)->with('title',$title)->with('tag_id',$id);
+
+    }
+ 
+ public function specific_teacher($id)
+    {
+        $title="Teacher's Question";
+              $ques_list=DB::table('questions')
+                           ->where('privacy_status','=',2)
+                           ->join('tag_relations','tag_relations.question_id','=','questions.id')
+                           ->where('tag_relations.tag_id','=',$id)
+                           ->select('questions.id','questions.title','questions.content','questions.created_at','tag_relations.tag_id')
+                           ->orderBy('created_at', 'desc')
+                           ->paginate(5);
+
+        $total_answer=[];
+        $tag=[];
+
+        foreach ($ques_list as $question)
+        {
+             $total_answer[]=DB::table('answers')
+                            ->where('ques_id','=',$question->id)
+                            ->count();
+             
+             $tag[$question->id]=DB::table('tag_relations')
+                                 ->where('tag_relations.question_id','=',$question->id)
+                                 ->join('tags','tags.id','=','tag_relations.tag_id')
+                                 ->select('tags.tag_name')
+                                 ->get();
+        }
+       return view('home_tag')->with('list',$ques_list)->with('total_answer',$total_answer)->with('ques_tag',$tag)->with('title',$title)->with('tag_id',$id);
 
     }
  

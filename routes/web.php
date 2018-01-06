@@ -43,6 +43,12 @@ return App\tag::where('tag_name','LIKE','%'.request('q').'%')->paginate(10);
 Auth::routes(); 
 
 Route::get('/home', 'HomeController@index'); 
+Route::get('/home/vote', 'HomeController@index_vote'); 
+Route::get('/home/teacher', 'HomeController@index_teacher');
+
+Route::get('/home_tag/{id}', 'TagController@specific');
+Route::get('/home_tag/vote/{id}', 'TagController@specific_vote'); 
+Route::get('/home_tag/teacher/{id}', 'TagController@specific_teacher'); 
  
 Route::get('/profile/{id}','UserController@profile'); 
 Route::post('/update-profile','UserController@update');
@@ -109,9 +115,14 @@ Route::get('/academic_archive_choice', function () {
     return view('academic_archieve_welcome');
 });
 
+/*
 Route::get('/academic_archive', function () {
     return view('academic_archive');
 });
+*/
+
+Route::get('/academic_archive','academicArchiveController@index');
+
 
 Route::post('/academic_archive_submitted','academicArchiveController@store');
 
@@ -153,11 +164,23 @@ Route::get('/academic_archive_file_view_current_user','UserController@archieveFo
 
 Route::get('/remove/{file_id}','academicArchiveController@remove');
 
-Route::post('/change_privacy/{ques_id}','QuestionEditController@privacy');
+Route::post('/change_privacy/{ques_id}','QuestionEditController@privacy'); 
 
 Route::get('/admin_page','adminController@index');
+Route::get('/admin_page_subject','adminController@subject');
+  
+Route::get('/admin_update_subject/{id}','adminController@subject_update_first');
+Route::post('/admin_update_subject_second','adminController@subject_update_second');
 
 Route::get('/admin_user_update/{id}','adminController@user_update_first');
 Route::post('/admin_user_update_second','adminController@user_update_second');
 
+Route::get('/admin_add_subject', function () {
+    return view('admin_add_subject');
+});
+Route::post('/admin_add_subject','adminController@add_subject');
+Route::get('/admin_delete_subject/{id}','adminController@subject_delete');
+
+
 Route::get('/admin_user_delete','adminController@user_delete');
+

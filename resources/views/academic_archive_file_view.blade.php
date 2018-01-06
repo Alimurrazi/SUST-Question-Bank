@@ -24,9 +24,9 @@
       <div class="col-md-3">
         <select  name="subject" class="form-control" required>
          <option  disabled selected hidden  value="">Select Subject</option>
-         <option value="C">C</option>
-         <option value="java">Java</option>
-         <option value="S-w">S/W E</option>
+                                    @foreach($subject as $subject)
+         <option value="{{$subject->subject_name}}">{{$subject->subject_name." - ".$subject->subject_code }}</option>
+                           @endforeach
        </select>
        
      </div>
