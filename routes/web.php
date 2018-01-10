@@ -168,19 +168,33 @@ Route::post('/change_privacy/{ques_id}','QuestionEditController@privacy');
 
 Route::get('/admin_page','adminController@index');
 Route::get('/admin_page_subject','adminController@subject');
-  
-Route::get('/admin_update_subject/{id}','adminController@subject_update_first');
-Route::post('/admin_update_subject_second','adminController@subject_update_second');
+Route::get('/admin_page_tag','adminController@tag');
+   
+
 
 Route::get('/admin_user_update/{id}','adminController@user_update_first');
 Route::post('/admin_user_update_second','adminController@user_update_second');
 
+Route::get('/admin_update_subject/{id}','adminController@subject_update_first');
+Route::post('/admin_update_subject_second','adminController@subject_update_second');
+
+Route::get('/admin_update_tag/{id}','adminController@tag_update_first');
+Route::post('/admin_update_tag_second','adminController@tag_update_second');
+
+
 Route::get('/admin_add_subject', function () {
     return view('admin_add_subject');
 });
+
 Route::post('/admin_add_subject','adminController@add_subject');
 Route::get('/admin_delete_subject/{id}','adminController@subject_delete');
 
+Route::get('/admin_add_tag', function () {
+    return view('admin_add_tag');
+});
+
+Route::post('/admin_add_tag','adminController@add_tag');
+Route::get('/admin_delete_tag/{id}','adminController@tag_delete');
 
 Route::get('/admin_user_delete','adminController@user_delete');
 
